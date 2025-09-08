@@ -3,11 +3,74 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Harapan Baru Storybook</title>
+    <title>Harapan Baru Storybook</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;700&display=swap">
+    <link rel="stylesheet" href="styles/parallax.css">
+    <script src="js/parallax.js" defer></script>
     </head>
     <body>
-        <main>
-            <h1>Harapan Baru Storybook</h1>
-        </main>
+            <main>
+                <section class="section parallax section-title">
+                    <div class="section-full-overlay">
+                        <div class="section-overlay-text">
+                                <p>Scroll or click the arrow to enter and read the Storybook,<br />Harapan Baru (New Hope).</p>
+                                <p>A doorway into the lives of women whose stories embody courage, compassion, and endurance. In the face of conflict, disaster, and hardship, they rose as leaders, storytellers, and guardians of peace.</p>
+                                <p>UN Women presents this collection to honor their experiences and to inspire us all to recognize that peace is not an ideal we hope for, but a journey we must walk together.</p>
+                        </div>
+                        <div class="arrow-circle">
+                            <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" class="arrow">
+                                <circle cx="32" cy="32" r="30" stroke="#fff" stroke-width="4" fill="none"/>
+                                <path d="M32 20V44" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+                                <path d="M24 36L32 44L40 36" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="women-overlay">
+                        <div class="women-img women-left">
+                            <img src="images/women-left.png" alt="Women Left">
+                        </div>
+                        <div class="women-img women-right">
+                            <img src="images/women-right.png" alt="Women Right">
+                        </div>
+                    </div>
+                    <div class="section-content">
+                        <div class="row row-bg-light">
+                            <img src="images/harapan-baru.png" alt="Harapan Baru" class="row-img-centered">
+                        </div>
+                        <div class="row row-bg-overlay">
+                            <div class="row-overlay"></div>
+                            <div class="row-content">
+                                <img src="images/indo-map.jpg" alt="Indonesia Map" class="row-img-map">
+                            </div>
+                        </div>
+                        <div class="row row-bg-light">
+                            <div class="row-content">
+                                <img src="images/harapan-baru-sub.png" alt="Harapan Baru Sub" class="row-img-centered">
+                                <img src="images/rising.png" alt="Rising" class="row-img-centered" style="margin-top: 1rem;">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="section parallax section2">
+                    <div class="overlay"></div>
+                    <div class="section-content">Page 2: Four Pillars</div>
+                </section>
+                <section class="section parallax section3">
+                    <div class="overlay"></div>
+                    <div class="section-content">Page 3: Introduction</div>
+                </section>
+                <section class="section parallax section4">
+                    <div class="overlay"></div>
+                    <div class="section-content">Page 4: Introduction 1</div>
+                </section>
+                <section class="section parallax section5">
+                    <div class="overlay"></div>
+                    <div class="section-content">Page 5: Introduction 2</div>
+                </section>
+                <section class="section parallax section6">
+                    <div class="overlay"></div>
+                    <div class="section-content">Page 6: Introduction 3</div>
+                </section>
+            </main>
     </body>
 </html>

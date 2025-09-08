@@ -1,26 +1,43 @@
 document.addEventListener('DOMContentLoaded', function() {
   const overlay = document.querySelector('.section-full-overlay');
   const sectionTitle = document.querySelector('.section-title');
+  const sectionPillars = document.querySelector('.section-pillars');
+  const footnote = document.querySelector('.column-footnote');
+  const columnRight = document.querySelector('.pillars-slide');
 
   function slideUpOverlay() {
     if (!overlay.classList.contains('slide-up')) {
       overlay.classList.add('slide-up');
+
       if (sectionTitle) {
         sectionTitle.classList.add('slide-women');
       }
     }
   }
 
-  // Slide up on scroll
-  window.addEventListener('scroll', function() {
-    if (window.scrollY > 10 && overlay) {
-      slideUpOverlay();
+  function animateColumnRight() {
+    if (columnRight) {
+      columnRight.classList.add('slide-in');
     }
-  });
+  }
 
-  // Slide up on click
+  function pillarsAnimation() {
+    if (footnote) {
+        setTimeout(function() {
+          footnote.classList.add('visible');
+        }, 700); // Wait for scroll animation
+    }
+
+    animateColumnRight();
+  }
+
+  // Slide up on click (only if overlay is visible)
   if (overlay) {
-    overlay.addEventListener('click', slideUpOverlay);
+    overlay.addEventListener('click', function() {
+      if (!overlay.classList.contains('slide-up')) {
+        slideUpOverlay();
+      }
+    });
   }
 
   // Optional: Arrow click (if you add an arrow element)
@@ -32,21 +49,41 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Improved trackpad gesture detection
-  // Wheel event (trackpad or mouse)
-  window.addEventListener('wheel', function(e) {
-    if (overlay && !overlay.classList.contains('slide-up')) {
-      // Any vertical movement triggers
+window.addEventListener('scroll', function() {
+  if (window.scrollY > 10 && overlay) {
+    if (!overlay.classList.contains('slide-up')) {
+      slideUpOverlay();
+    } else if (overlay.classList.contains('slide-up') && sectionPillars) {
+      sectionPillars.scrollIntoView({ behavior: 'smooth' });
+      // Show footnote when section-pillars is scrolled into view
+      pillarsAnimation();
+    }
+  }
+});
+
+
+window.addEventListener('wheel', function(e) {
+  if (overlay) {
+    if (!overlay.classList.contains('slide-up')) {
       if (Math.abs(e.deltaY) > 0) {
         slideUpOverlay();
       }
+    } else if (overlay.classList.contains('slide-up') && sectionPillars && Math.abs(e.deltaY) > 0) {
+      sectionPillars.scrollIntoView({ behavior: 'smooth' });
+      pillarsAnimation();
     }
-  }, { passive: true });
+  }
+}, { passive: true });
 
-  // Touchmove event (mobile or trackpad)
-  window.addEventListener('touchmove', function(e) {
-    if (overlay && !overlay.classList.contains('slide-up')) {
+window.addEventListener('touchmove', function(e) {
+  if (overlay) {
+    if (!overlay.classList.contains('slide-up')) {
       slideUpOverlay();
+    } else if (overlay.classList.contains('slide-up') && sectionPillars) {
+      sectionPillars.scrollIntoView({ behavior: 'smooth' });
+      pillarsAnimation();
     }
-  }, { passive: true });
+  }
+}, { passive: true });
+
 });

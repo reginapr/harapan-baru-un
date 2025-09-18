@@ -35,24 +35,24 @@ document.addEventListener('DOMContentLoaded', function() {
     animateColumnRight();
   }
 
-  function slideVisibleAnimation(section) {
-    if (section) {
-      // document.querySelectorAll('section').forEach(sec => {
-      //   sec.classList.remove('visible');
-      // });
+  // function slideVisibleAnimation(section) {
+  //   if (section) {
+  //     // document.querySelectorAll('section').forEach(sec => {
+  //     //   sec.classList.remove('visible');
+  //     // });
 
-      // section.classList.add('visible');
+  //     // section.classList.add('visible');
 
-      // if (section.querySelector('.overlay.fade')) {
-      //   fadeOverlay(true, section);
-      // }
+  //     // if (section.querySelector('.overlay.fade')) {
+  //     //   fadeOverlay(true, section);
+  //     // }
 
-      // const previousSection = getPreviousSection(section);
-      // if (previousSection && previousSection.querySelector('.overlay.fade')) {
-      //   fadeOverlay(false, previousSection);
-      // }
-    }
-  }
+  //     // const previousSection = getPreviousSection(section);
+  //     // if (previousSection && previousSection.querySelector('.overlay.fade')) {
+  //     //   fadeOverlay(false, previousSection);
+  //     // }
+  //   }
+  // }
 
   // Fade in/out overlay utility
   function fadeOverlay(fadeIn = true, section) {
@@ -165,11 +165,11 @@ window.addEventListener('wheel', function(e) {
               textBoxes[currentIndex].classList.add('fade-in');
               textBoxes[currentIndex].classList.remove('slide-up');
             }
-          }, 100);
 
-          if (currentIndex > 0 && textBoxes[currentIndex - 1]) {
-            textBoxes[currentIndex - 1].classList.remove('fade-in', 'slide-up');
-          }
+            if (currentIndex > 0 && textBoxes[currentIndex - 1]) {
+              textBoxes[currentIndex - 1].classList.remove('fade-in', 'slide-up');
+            }
+          }, 150);
         } else {
           textBoxes[0].classList.remove('fade-in', 'slide-up');
         }
@@ -184,7 +184,6 @@ window.addEventListener('wheel', function(e) {
 
         const next = getNextSection(current);
         scrollToSection(next);
-        slideVisibleAnimation(current);
         return;
       }
     }

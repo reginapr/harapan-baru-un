@@ -501,7 +501,7 @@ section.dissolve {
 .sponsor-logo-container {
   display: flex;
   justify-content: center;
-  margin-bottom: 8px;
+  margin-bottom: 16px;
 }
 
 .sponsor-logo {

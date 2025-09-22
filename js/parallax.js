@@ -230,7 +230,7 @@ function updateIndex(direction) {
 let currentIndex = 0;
 let index = -1;
 let scroll = false;
-let mouseSensitivity = 1; // Default sensitivity
+let mouseSensitivity = 1.5; // Default sensitivity
 
 function setMouseSensitivity(value) {
   mouseSensitivity = value;

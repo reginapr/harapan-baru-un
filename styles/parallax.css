@@ -441,6 +441,23 @@ nav.main-navigation .main-links {
     margin-left: 100px;
 }
 
+.harapan-baru-sub-img {
+  display: flex;
+  max-width: 300px;
+  height: auto;
+  margin: 12px auto;
+  width: 100%;
+  object-fit: contain;
+  justify-content: center;
+  align-items: center; 
+}
+
+.harapan-baru-sub-img img {
+  margin-top: 8px;
+  height: auto;
+  display: block;
+}
+
 .sub-bold {
     color: #121212;
     font-weight: 700;
@@ -952,7 +969,7 @@ nav.main-navigation .main-links {
 .slide {
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.2s cubic-bezier(0.77,0,0.175,1), transform 0.5s cubic-bezier(.17,.67,.83,.67);
+  transition: opacity 0.2s cubic-bezier(0.77,0,0.175,1), transform 0.2s cubic-bezier(.17,.67,.83,.67);
 }
 
 .slide-up {

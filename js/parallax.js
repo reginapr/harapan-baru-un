@@ -1,4 +1,33 @@
 document.addEventListener('DOMContentLoaded', function() {
+  // Lazy load background images using Intersection Observer
+  const bgSections = document.querySelectorAll('[data-bg]');
+  if ('IntersectionObserver' in window) {
+    const bgObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const bgUrl = el.getAttribute('data-bg');
+          if (bgUrl) {
+            el.style.backgroundImage = `url('${bgUrl}')`;
+            el.classList.add('bg-loaded');
+            observer.unobserve(el);
+          }
+        }
+      });
+    }, { rootMargin: '200px' });
+    bgSections.forEach(section => {
+      bgObserver.observe(section);
+    });
+  } else {
+    // Fallback: load all backgrounds immediately
+    bgSections.forEach(el => {
+      const bgUrl = el.getAttribute('data-bg');
+      if (bgUrl) {
+        el.style.backgroundImage = `url('${bgUrl}')`;
+        el.classList.add('bg-loaded');
+      }
+    });
+  }
 // Track the last visible section for scroll logic
 window.lastVisibleSection = null;
 
@@ -107,6 +136,17 @@ if (mainLinks && subLinks) {
       subLinks.classList.remove('active');
       subLinks.style.opacity = '0';
       subLinks.style.pointerEvents = 'none';
+
+      // If this is the video menu item, call handleVideoSectionScroll with direct=true
+      if (
+        (item.tagName === 'A' && item.getAttribute('href') === '#video') ||
+        item.dataset.section === 'video'
+      ) {
+        const videoSection = document.getElementById('video');
+        if (videoSection) {
+          handleVideoSectionScroll(videoSection, false, true);
+        }
+      }
     });
   });
 }
@@ -196,46 +236,72 @@ function setMouseSensitivity(value) {
   mouseSensitivity = value;
 }
 
-window.addEventListener('wheel', function(e) {
-  const adjustedDeltaY = e.deltaY * mouseSensitivity;
-  // Detect scroll direction
-  const isScrollUp = adjustedDeltaY < 0;
+setMouseSensitivity(1.5);
+// Example: setMouseSensitivity(0.7); // Less sensitive
+// Example: setMouseSensitivity(1.5); // More sensitive
+
+let scrollDebounce = false;
+const SCROLL_DEBOUNCE_MS = 250; // Snappier scroll
+
+function getCurrentSection() {
   const sections = Array.from(document.querySelectorAll('section'));
   let current = null;
-
-  // Find the section whose top is closest to 0 but not greater than 0
   let minTop = Infinity;
   sections.forEach(sec => {
-      const rect = sec.getBoundingClientRect();
-      if (rect.top <= 10 && rect.bottom > 10 && Math.abs(rect.top) < minTop) {
-        minTop = Math.abs(rect.top);
-        current = sec;
+    const rect = sec.getBoundingClientRect();
+    if (rect.top <= 10 && rect.bottom > 10 && Math.abs(rect.top) < minTop) {
+      minTop = Math.abs(rect.top);
+      current = sec;
     }
   });
+  return current || sections[0]; // fallback to first section
+}
 
+function handleVideoSectionScroll(current, isScrollUp, direct = false) {
   // PRIORITY: Handle video section scroll first
   if (current && current.id === 'video') {
     const iframe = current.querySelector('iframe');
     if (iframe) {
       iframe.style.pointerEvents = 'none';
-      setTimeout(() => {
-        iframe.style.pointerEvents = '';
-      }, 1200); // restore after scroll animation
+      // setTimeout(() => {
+      //   iframe.style.pointerEvents = '';
+      // }, 1200);
     }
+    if (direct) {
+      // Only scroll to video section, do not move to next/prev
+      current.classList.add('visible');
+      current.scrollIntoView({ behavior: 'smooth' });
+      return true;
+    }
+    // Wheel event: allow next/prev navigation
     if (!isScrollUp) {
       const nextSection = getNextSection(current);
       if (nextSection) {
         scrollToSection(nextSection);
-        return;
+        return true;
       }
     } else {
       const prevSection = getPreviousSection(current);
       if (prevSection) {
         scrollToSection(prevSection);
-        return;
+        return true;
       }
     }
-    // Prevent any further scroll logic
+    return true;
+  }
+  return false;
+}
+
+window.addEventListener('wheel', function(e) {
+  if (scrollDebounce) return;
+  scrollDebounce = true;
+  setTimeout(() => { scrollDebounce = false; }, SCROLL_DEBOUNCE_MS);
+
+  const adjustedDeltaY = e.deltaY * mouseSensitivity;
+  const isScrollUp = adjustedDeltaY < 0;
+  const current = getCurrentSection();
+
+  if (handleVideoSectionScroll(current, isScrollUp)) {
     return;
   }
 

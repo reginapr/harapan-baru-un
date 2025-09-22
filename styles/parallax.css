@@ -61,7 +61,7 @@ nav.main-navigation span {
   min-height: 40px;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 6px 4px rgba(23,34,47,0.3);
+  box-shadow: 0 4px 4px rgba(23,34,47,0.5);
   cursor: pointer;
 }
 
@@ -151,7 +151,6 @@ nav.main-navigation .main-links {
 }
 
 .section-home {
-  background-image: url('../images/bg-pg-1.jpg');
   background-size: cover;
 }
 
@@ -167,219 +166,12 @@ nav.main-navigation .main-links {
 }
 
 .section-women { background: #EFE8DE; }
-.section-pillars .section-bg {
-  background-image: url('../images/bg-cover-pillars.jpg');
-  background-position: center bottom;
-}
-.section-intro .section-bg {
-  background-image: url('../images/bg-intro-0.jpg');
-}
-.section-intro-1 .section-bg {
-  background-image: url('../images/bg-intro-1.jpg');
-}
-.section-intro-2 .section-bg {
-  background-image: url('../images/bg-intro-2.jpg');
-  /* opacity: 1;
-  transition: opacity 1.5s ease-in-out; */
-}
-.section-intro-3 .section-bg {
-  background-image: url('../images/bg-intro-3.jpg');
-}
-.section-intro-4-1 .section-bg {
-  background-image: url('../images/bg-intro-41.jpg');
-}
-.section-intro-4-2 .section-bg {
-  background-image: url('../images/bg-intro-42.jpg');
-}
-.section-intro-5 .section-bg {
-  background-image: url('../images/bg-intro-5.jpg');
-}
-.section-outro-cover .section-bg {
-  background-image: url('../images/bg-pg-outro.jpg');
-}
+
+/* .section-bg background-image is now lazy loaded via data-bg attribute and JS */
 
 /* Profile section */
 .section-quote {
   background: #FFFFFF;
-}
-
-/* Evi */ 
-.section-evi-cover .section-bg {
-  background-image: url('../images/bg-cover-evi.jpg');
-}
-
-.section-profile-evi-1 .section-bg {
-  background-image: url('../images/bg-profile-evi-1.jpg');
-}
-
-.section-profile-evi-2 .section-bg {
-  background-image: url('../images/bg-profile-evi-2.jpg');
-}
-
-.section-profile-evi-3 .section-bg {
-  background-image: url('../images/bg-profile-evi-3.jpg');
-}
-
-/* Ela */ 
-.section-ela-cover .section-bg {
-  background-image: url('../images/bg-cover-ela.jpg');
-}
-
-.section-profile-ela-1 .section-bg {
-  background-image: url('../images/bg-profile-ela-1.jpg');
-}
-
-.section-profile-ela-2 .section-bg {
-  background-image: url('../images/bg-profile-ela-2.jpg');
-}
-
-.section-profile-ela-3 .section-bg {
-  background-image: url('../images/bg-profile-ela-3.jpg');
-}
-
-.section-gallery-ela-1 .section-bg {
-  background-image: url('../images/bg-gallery-ela-0.jpg');
-}
-
-.section-gallery-ela-2 .section-bg {
-  background-image: url('../images/bg-gallery-ela-1.jpg');
-}
-
-.section-gallery-ela-3 .section-bg {
-  background-image: url('../images/bg-gallery-ela-2.jpg');
-}
-
-.section-gallery-ela-4 .section-bg {
-  background-image: url('../images/bg-gallery-ela-3.jpg');
-}
-
-/* Rukmini */
-.section-rukmini-cover .section-bg {
-  background-image: url('../images/bg-cover-rukmini.jpg');
-}
-
-.section-profile-rukmini-1 .section-bg {
-  background-image: url('../images/bg-profile-rukmini-1.jpg');
-}
-
-.section-profile-rukmini-2 .section-bg {
-  background-image: url('../images/bg-intro-1.jpg');
-}
-
-.section-gallery-rukmini-1 .section-bg {
-  background-image: url('../images/bg-gallery-rukmini-1.jpg');
-  background-position: center top;
-}
-
-.section-gallery-rukmini-2 .section-bg {
-  background-image: url('../images/bg-gallery-rukmini-2.jpg');
-}
-
-.section-gallery-rukmini-3 .section-bg {
-  background-image: url('../images/bg-gallery-rukmini-3.jpg');
-}
-
-.section-gallery-rukmini-4 .section-bg {
-  background-image: url('../images/bg-gallery-rukmini-4.jpg');
-}
-
-/* Yeni */
-.section-yeni-cover .section-bg {
-  background-image: url('../images/bg-cover-yeni.jpg');
-}
-
-.section-profile-yeni-1 .section-bg {
-  background-image: url('../images/bg-profile-yeni-1.jpg');
-}
-
-.section-profile-yeni-2 .section-bg {
-  background-image: url('../images/bg-profile-yeni-2.jpg');
-}
-
-/* Fitrah */
-.section-fitrah-cover .section-bg {
-  background-image: url('../images/bg-cover-fitrah.jpg');
-}
-
-.section-profile-fitrah-1 .section-bg {
-  background-image: url('../images/bg-profile-fitrah-1.jpg');
-}
-
-.section-profile-fitrah-2 .section-bg {
-  background-image: url('../images/bg-profile-fitrah-2.jpg');
-}
-
-.section-gallery-fitrah-1 .section-bg {
-  background-image: url('../images/bg-gallery-fitrah-1.jpg');
-}
-
-.section-gallery-fitrah-2 .section-bg {
-  background-image: url('../images/bg-gallery-fitrah-2.jpg');
-}
-
-.section-gallery-fitrah-3 .section-bg {
-  background-image: url('../images/bg-gallery-fitrah-3.jpg');
-  background-position: center top;
-}
-
-.section-gallery-fitrah-4 .section-bg {
-  background-image: url('../images/bg-intro-0.jpg');
-}
-
-/* Bertha */ 
-.section-bertha-cover .section-bg {
-  background-image: url('../images/bg-cover-bertha.jpg');
-}
-
-.section-profile-bertha-1 .section-bg {
-  background-image: url('../images/bg-profile-bertha-1.jpg');
-}
-
-.section-profile-bertha-2 .section-bg {
-  background-image: url('../images/bg-profile-bertha-2.jpg');
-}
-
-/* Martince */ 
-.section-martince-cover .section-bg {
-  background-image: url('../images/bg-cover-martince.jpg');
-  background-position: center bottom;
-}
-
-.section-profile-martince-1 .section-bg {
-  background-image: url('../images/bg-profile-martince-1.jpg');
-}
-
-.section-profile-martince-2 .section-bg {
-  background-image: url('../images/bg-profile-martince-2.jpg');
-}
-
-.section-gallery-martince-1 .section-bg {
-  background-image: url('../images/bg-gallery-martince-1.jpg');
-}
-
-.section-gallery-martince-2 .section-bg {
-  background-image: url('../images/bg-gallery-martince-2.jpg');
-}
-
-.section-gallery-martince-3 .section-bg {
-  background-image: url('../images/bg-gallery-martince-3.jpg');
-}
-
-.section-gallery-martince-4 .section-bg {
-  background-image: url('../images/bg-gallery-martince-4.jpg');
-}
-
-/* Hasna */
-.section-hasna-cover .section-bg {
-  background-image: url('../images/bg-cover-hasna.jpg');
-}
-
-.section-profile-hasna-1 .section-bg {
-  background-image: url('../images/bg-profile-hasna-1.jpg');
-}
-
-.section-profile-hasna-2 .section-bg {
-  background-image: url('../images/bg-profile-hasna-2.jpg');
 }
 
 /* Overlay */
@@ -476,11 +268,11 @@ nav.main-navigation .main-links {
 }
 
 .row-img-centered {
-  display: block;
-  margin: 0 auto;
-  max-width: 400px;
-  width: 100%;
-  height: auto;
+    display: block;
+    margin: 24px auto;
+    max-width: 300px;
+    width: 100%;
+    height: auto;
 }
 
 .women-overlay {
@@ -605,20 +397,27 @@ nav.main-navigation .main-links {
 
 .column-left {
   margin-right: 50px;
+  padding: 0;
   width: 60%;
 }
 
-.column-left img {
-  display: block;
-  margin: 0 auto;   
+.column-image {
+  margin: 16px auto;
   max-width: 500px;
-  height: auto;
+}
+
+.column-left img {
+    display: block;
+    margin: 0 auto;
+    max-width: 400px;
+    height: auto;
+    width: 100%;
 }
 
 .column-footnote {
   background: #DCC8BE;
   border-radius: 8px;
-  margin: 36px auto;
+  margin: 24px auto;
   max-width: 670px;
   padding: 32px;
   opacity: 0;

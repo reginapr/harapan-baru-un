@@ -615,7 +615,7 @@ nav.main-navigation .main-links {
   height: auto;
 }
 
-/* .column-footnote {
+.column-footnote {
   background: #DCC8BE;
   border-radius: 8px;
   margin: 36px auto;
@@ -629,7 +629,7 @@ nav.main-navigation .main-links {
 .column-footnote.visible {
   opacity: 1;
   transform: translateY(0);
-} */
+}
 
 .column-right {
   background: rgba(191, 153, 141, 0.15);

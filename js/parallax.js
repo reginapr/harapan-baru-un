@@ -50,6 +50,11 @@ function slideUpOverlay() {
 }
 
 function pillarsAnimation() {
+  if (footnote) {
+    setTimeout(function() {
+      footnote.classList.add('visible');
+    }, 700); // Wait for scroll animation
+  }
   if (columnRight) {
     columnRight.classList.add('slide-in');
   }

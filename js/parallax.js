@@ -213,6 +213,32 @@ window.addEventListener('wheel', function(e) {
     }
   });
 
+  // PRIORITY: Handle video section scroll first
+  if (current && current.id === 'video') {
+    const iframe = current.querySelector('iframe');
+    if (iframe) {
+      iframe.style.pointerEvents = 'none';
+      setTimeout(() => {
+        iframe.style.pointerEvents = '';
+      }, 1200); // restore after scroll animation
+    }
+    if (!isScrollUp) {
+      const nextSection = getNextSection(current);
+      if (nextSection) {
+        scrollToSection(nextSection);
+        return;
+      }
+    } else {
+      const prevSection = getPreviousSection(current);
+      if (prevSection) {
+        scrollToSection(prevSection);
+        return;
+      }
+    }
+    // Prevent any further scroll logic
+    return;
+  }
+
   if (current) {
     const next = getNextSection(current);
     if (next && !current.classList.contains('visible')) {
@@ -312,6 +338,22 @@ window.addEventListener('wheel', function(e) {
           iframe.style.pointerEvents = '';
         }, 1200); // restore after scroll animation
       }
+      // Always allow scroll to next/prev section
+      if (!isScrollUp) {
+        const nextSection = getNextSection(current);
+        if (nextSection) {
+          scrollToSection(nextSection);
+          return;
+        }
+      } else {
+        const prevSection = getPreviousSection(current);
+        if (prevSection) {
+          scrollToSection(prevSection);
+          return;
+        }
+      }
+      // Prevent default scroll logic from running
+      return;
     }
 
     // If no .text-box, scroll to next section as usual

@@ -465,7 +465,7 @@ nav.main-navigation .main-links {
 
 .pillar-profile img {
     border-radius: 8px;
-    max-width: 110px
+    max-width: 80px
 }
 
 .pillar-profile img:hover {
@@ -497,7 +497,7 @@ nav.main-navigation .main-links {
   display: flex;
   gap: 20px;
   position: relative;
-  width: 100%;
+  width: 190px;
   padding-bottom: 56px;
 }
 

@@ -1,4 +1,21 @@
 document.addEventListener('DOMContentLoaded', function() {
+  
+  // Play mysic on load
+function enableMusicAutoplay() {
+    const audio = document.getElementById('bg-music');
+    if (audio && audio.paused) {
+      audio.play().catch(() => {}); // Prevent error if play is blocked
+    }
+    // Remove listeners after first interaction
+    window.removeEventListener('click', enableMusicAutoplay);
+    window.removeEventListener('keydown', enableMusicAutoplay);
+    window.removeEventListener('scroll', enableMusicAutoplay);
+  }
+
+  window.addEventListener('click', enableMusicAutoplay);
+  window.addEventListener('keydown', enableMusicAutoplay);
+  window.addEventListener('scroll', enableMusicAutoplay);
+  
   // Lazy load background images using Intersection Observer
   const bgSections = document.querySelectorAll('[data-bg]');
   if ('IntersectionObserver' in window) {
@@ -31,6 +48,18 @@ document.addEventListener('DOMContentLoaded', function() {
 // Track the last visible section for scroll logic
 window.lastVisibleSection = null;
 
+
+// Utility to set visible section and remove from previous
+function setVisibleSection(newSection) {
+    if (window.lastVisibleSection && window.lastVisibleSection !== newSection) {
+        window.lastVisibleSection.classList.remove('visible');
+    }
+    if (!newSection.classList.contains('visible')) {
+      newSection.classList.add('visible');
+    }
+    window.lastVisibleSection = newSection;
+}
+
 // Scroll up to previous section
 function scrollUpToSection(section) {
   if (!isScrolling && section) {
@@ -38,9 +67,10 @@ function scrollUpToSection(section) {
     section.scrollIntoView({ behavior: 'smooth' });
     setTimeout(() => {
       isScrolling = false;
-    }, 1200);
+    }, 1000);
   }
 }
+
 // Intercept anchor links to sections, scroll and add visible without changing URL
 document.querySelectorAll('a[href^="#"]').forEach(link => {
   link.addEventListener('click', function(e) {
@@ -48,11 +78,7 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
     const targetSection = document.getElementById(targetId);
     if (targetSection) {
       e.preventDefault();
-      // Remove visible from all sections
-      document.querySelectorAll('section').forEach(sec => sec.classList.remove('visible'));
-      // Add visible to target section
-      targetSection.classList.add('visible');
-      // Scroll to section
+      setVisibleSection(targetSection);
       targetSection.scrollIntoView();
     }
   });
@@ -157,6 +183,8 @@ function scrollToSection(section) {
   if (!isScrolling && section) {
     isScrolling = true;
 
+     setVisibleSection(section);
+
     if (section.querySelector('.pillars-slide')) {
       pillarsAnimation();
     }
@@ -176,18 +204,23 @@ function scrollToSection(section) {
     allSections.forEach(sec => {
       if (sec !== section) {
         const textBoxes = sec.querySelectorAll('.text-box');
-        textBoxes.forEach(tb => {
-          tb.classList.add('hidden');
-          tb.classList.remove('fade-in', 'slide-up');
+        textBoxes.forEach((tb, i) => {
+          if (i > 0) {
+            tb.classList.add('hidden');
+            tb.classList.remove('fade-in', 'slide-up');
+          } else {
+            tb.classList.add('show');
+          }
         });
       }
     });
-
+    
     section.scrollIntoView({ behavior: 'smooth' });
+    isScrolling = false;
 
-    setTimeout(() => {
-      isScrolling = false;
-    }, 1100); // Adjust duration as needed
+    // setTimeout(() => {
+    //   isScrolling = false;
+    // }, 1000); // Adjust duration as needed
   }
 }
 
@@ -198,6 +231,17 @@ function replaceGradientWithOverlay(section) {
     gradient.classList.remove('gradient-overlay');
     gradient.classList.add('overlay-darker');
     footnote.classList.add('hidden');
+  }
+}
+
+function resetOverlayAndFootnote(section) {
+  if (section.querySelector('.overlay-darker')) {
+    section.querySelector('.overlay-container').classList.remove('overlay-darker');
+    section.querySelector('.overlay-container').classList.add('gradient-overlay');
+    const footnote = section.querySelector('.footnote');
+    if (footnote) {
+      footnote.classList.remove('hidden');
+    }
   }
 }
 
@@ -217,6 +261,11 @@ function getPreviousSection(currentSection) {
     return prev;
 }
 
+let currentIndex = 1;
+let index = 0;
+let scroll = false;
+let mouseSensitivity = 1; // Default sensitivity
+
 function updateIndex(direction) {
     if (direction > 0) {
       index++;
@@ -227,16 +276,11 @@ function updateIndex(direction) {
     return index;
 }
 
-let currentIndex = 0;
-let index = -1;
-let scroll = false;
-let mouseSensitivity = 1.5; // Default sensitivity
-
 function setMouseSensitivity(value) {
   mouseSensitivity = value;
 }
 
-setMouseSensitivity(1.5);
+setMouseSensitivity(2);
 // Example: setMouseSensitivity(0.7); // Less sensitive
 // Example: setMouseSensitivity(1.5); // More sensitive
 
@@ -267,6 +311,7 @@ function handleVideoSectionScroll(current, isScrollUp, direct = false) {
       //   iframe.style.pointerEvents = '';
       // }, 1200);
     }
+    
     if (direct) {
       // Only scroll to video section, do not move to next/prev
       current.classList.add('visible');
@@ -292,6 +337,43 @@ function handleVideoSectionScroll(current, isScrollUp, direct = false) {
   return false;
 }
 
+function toggleLangFlag(flag) {
+    // Get the clicked flag's data-lang value
+    const selectedLang = flag.getAttribute('data-lang');
+    // Get all flag elements
+    const allFlags = document.querySelectorAll('.flag');
+    // Activate the clicked flag, deactivate others
+    allFlags.forEach(f => {
+        if (f === flag) {
+            f.classList.add('active');
+        } else {
+            f.classList.remove('active');
+        }
+    });
+    // Update <main> data-lang attribute
+    const main = document.getElementById('main');
+    if (main) {
+        main.setAttribute('data-lang', selectedLang);
+    }
+    // Update data-hidden for all elements with data-lang
+    document.querySelectorAll('[data-lang]').forEach(el => {
+        if (el.getAttribute('data-lang') === selectedLang) {
+            el.setAttribute('data-hidden', 'false');
+        } else if (el.classList.contains('flag')) {
+            // Do nothing for flag elements
+        } else {
+            el.setAttribute('data-hidden', 'true');
+        }
+    });
+}
+
+// Example: Attach to all flag elements
+document.querySelectorAll('.flag').forEach(flag => {
+    flag.addEventListener('click', function() {
+        toggleLangFlag(this);
+    });
+});
+
 window.addEventListener('wheel', function(e) {
   if (scrollDebounce) return;
   scrollDebounce = true;
@@ -308,34 +390,29 @@ window.addEventListener('wheel', function(e) {
   if (current) {
     const next = getNextSection(current);
     if (next && !current.classList.contains('visible')) {
-      document.querySelectorAll('section').forEach(sec => sec.classList.remove('visible'));
-      current.classList.add('visible');
-      lastVisibleSection = current;
+      setVisibleSection(next);
     }
 
     if (isScrollUp) {
       // Scroll up to previous section
       const prev = getPreviousSection(current);
-      if (prev) {
-        if (prev && !current.classList.contains('visible')) {
-          document.querySelectorAll('section').forEach(sec => sec.classList.remove('visible'));
-          // Add visible to previous section
-          prev.classList.add('visible');
-        }
-        lastVisibleSection = prev;
-        // Reset text-box index
-        currentIndex = 0;
-        index = -1;
-        scroll = false;
-        scrollUpToSection(prev);
+      if (!prev.classList.contains('visible')) {
+        setVisibleSection(prev);
       }
-    }
 
-    console.log('Current Section:', current.id, 'Index:', currentIndex);
+      console.log('Current Section:', prev.id, 'Index:', currentIndex);
+
+      // Reset text-box index
+      currentIndex = 0;
+      index = -1;
+      scroll = false;
+      scrollUpToSection(prev);
+      resetOverlayAndFootnote(prev);
+    }
 
     const textBoxes = current.querySelectorAll('.text-box');
 
-    if (textBoxes.length > 0 && current.classList.contains('visible')) {
+    if (currentIndex < textBoxes.length && textBoxes.length > 0 && current.classList.contains('visible')) {
       // Show the current .text-box
       if (currentIndex < textBoxes.length) {
         if (!scroll) {
@@ -343,29 +420,37 @@ window.addEventListener('wheel', function(e) {
           // Only update currentIndex once per scroll event
           let newIndex = updateIndex(e.deltaY);
           currentIndex = newIndex;
-          // prevent too many triggers — wait before allowing next scroll
-          setTimeout(() => {
-            scroll = false;
-          }, 1200); // adjust delay for sensitivity
+          
+          scroll = false;
+          // setTimeout(() => {
+          //   scroll = false;
+          // }, 1000);
         }
 
-        // Show/hide text-boxes as before
-        if (textBoxes[currentIndex] && current.classList.contains('visible')) {
-          if (textBoxes[currentIndex].classList.contains('slide')) {
-            textBoxes[currentIndex].classList.add('slide-up');
-            textBoxes[currentIndex].classList.remove('fade-in');
-          } else if (textBoxes[currentIndex].classList.contains('fade')) {
-            textBoxes[currentIndex].classList.add('fade-in');
-            textBoxes[currentIndex].classList.remove('slide-up');
-          } else {
-            return;
-          }
+        console.log('Current Section:', current.id, 'Index:', currentIndex);
 
-          if (currentIndex > 0 && textBoxes[currentIndex - 1]) {
-            textBoxes[currentIndex - 1].classList.remove('fade-in', 'slide-up');
+        // Show/hide text-boxes as before
+        if (currentIndex > 0) {
+          if (textBoxes[currentIndex] && current.classList.contains('visible')) {
+            if (textBoxes[currentIndex].classList.contains('slide')) {
+              textBoxes[currentIndex].classList.add('slide-up');
+              textBoxes[currentIndex].classList.remove('fade-in');
+            } else if (textBoxes[currentIndex].classList.contains('fade')) {
+              textBoxes[currentIndex].classList.add('fade-in');
+              textBoxes[currentIndex].classList.remove('slide-up');
+            } else {
+              return;
+            }
+
+            if (currentIndex > 0 && textBoxes[currentIndex - 1]) {
+              textBoxes[currentIndex - 1].classList.remove('fade-in', 'slide-up');
+              textBoxes[0].classList.add('hidden');
+            }
+          } else {
+            textBoxes[0].classList.remove('fade-in', 'slide-up');
           }
         } else {
-          textBoxes[0].classList.remove('fade-in', 'slide-up');
+          textBoxes[0].classList.remove('hidden');
         }
 
         if (
@@ -373,26 +458,34 @@ window.addEventListener('wheel', function(e) {
           current.classList.contains('last') &&
           currentIndex === textBoxes.length - 1
         ) {
-          let gradient = current.querySelector('.gradient-overlay');
-          if (gradient) {
-            replaceGradientWithOverlay(current);
+            let gradient = current.querySelector('.gradient-overlay');
+            if (gradient) {
+              replaceGradientWithOverlay(current);
+            }
           }
-        }
 
         return;
-      } else {
-        // Only reset index/currentIndex after moving to next section
+      }
+    } else {
+      // Only reset index/currentIndex after moving to next section
         const next = getNextSection(current);
         if (next) {
           scrollToSection(next);
+          if (next.querySelector('.overlay-darker')) {
+            resetOverlayAndFootnote(next);
+          }
+
           setTimeout(() => {
             currentIndex = 0;
             index = -1;
             scroll = false;
-          }, 200); // Wait for scroll animation
+            // Reset text-box visibility
+            if (textBoxes.length > 0 && textBoxes[currentIndex].classList.contains('hidden')) {
+              textBoxes[currentIndex].classList.remove('hidden');
+            }
+          }, 800); // Wait for scroll animation
         }
         return;
-      }
     }
 
     // Special handling for video section: ensure iframe does not block scroll
@@ -404,6 +497,7 @@ window.addEventListener('wheel', function(e) {
           iframe.style.pointerEvents = '';
         }, 1200); // restore after scroll animation
       }
+
       // Always allow scroll to next/prev section
       if (!isScrollUp) {
         const nextSection = getNextSection(current);

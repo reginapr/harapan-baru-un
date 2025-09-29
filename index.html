@@ -18,20 +18,13 @@
                         <span class="main-links">
                             <img src="images/icons/dots.svg" alt="More Options">
                         </span>
-                        <ul class="sub-links">
-                            <li>
-                                <a href="/"><img src="images/icons/volume.svg" alt="Sound"></a>
-                                <span class="tooltip">On/Off</span>
+                        <ul class="sub-links"> 
+                            <li id="sound-control" class="active">
+                                <a href="/" class="sound sound-on"><img src="images/icons/sound-on.svg" alt="Sound On"></a>
+                                <a href="/" class="sound sound-off"><img src="images/icons/sound-off.svg" alt="Sound Off"></a>
+                                <span class="tooltip"><span class="on">On</span><span class="off">Off</span></span>
                             </li>
-                            <!-- <li>
-                                <a href="/"><img src="images/icons/arrow-left.svg" alt="Previous"></a>
-                                <span class="tooltip">Previous</span>
-                            </li> -->
                             <li class="back-to-home"><a href="#home"><img src="images/icons/home.svg" alt="Home"></a></li>
-                            <!-- <li>
-                                <a href="/"><img src="images/icons/arrow-right.svg" alt="Next"></a>
-                                <span class="tooltip">Next</span>
-                            </li> -->
                             <li>
                                 <a href="#video"><img src="images/icons/movie.svg" alt="Video"></a>
                                 <span class="tooltip">Video</span>
@@ -48,21 +41,21 @@
                      </li>
                 </ul>
             </nav>
-            <section id="home" class="section section-home" data-bg="images/bg-pg-1.jpg">
-                <div class="section-full-overlay">
-                    <div class="section-overlay-text">
-                            <p>Scroll or click to enter and read the Storybook,<br />Harapan Baru (New Hope).</p>
-                            <p>A doorway into the lives of women whose stories embody courage, compassion, and endurance. In the face of conflict, disaster, and hardship, they rose as leaders, storytellers, and guardians of peace.</p>
-                            <p>UN Women presents this collection to honor their experiences and to inspire us all to recognize that peace is not an ideal we hope for, but a journey we must walk together.</p>
-                    </div>
-                    <div class="arrow-circle">
-                        <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" class="arrow">
-                            <circle cx="32" cy="32" r="30" stroke="#fff" stroke-width="4" fill="none"/>
-                            <path d="M32 20V44" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
-                            <path d="M24 36L32 44L40 36" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
+            <div class="section-full-overlay">
+                <div class="section-overlay-text">
+                        <p>Scroll or click to enter and read the Storybook,<br />Harapan Baru (New Hope).</p>
+                        <p>A doorway into the lives of women whose stories embody courage, compassion, and endurance. In the face of conflict, disaster, and hardship, they rose as leaders, storytellers, and guardians of peace.</p>
+                        <p>UN Women presents this collection to honor their experiences and to inspire us all to recognize that peace is not an ideal we hope for, but a journey we must walk together.</p>
                 </div>
+                <div class="arrow-circle">
+                    <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" class="arrow">
+                        <circle cx="32" cy="32" r="30" stroke="#fff" stroke-width="4" fill="none"/>
+                        <path d="M32 20V44" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+                        <path d="M24 36L32 44L40 36" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+            </div>
+            <section id="home" class="section section-home" data-bg="images/bg-pg-1.jpg">
                 <div class="women-overlay">
                     <div class="women-img women-left">
                         <img src="images/women-left.png" alt="Women Left">
@@ -100,10 +93,20 @@
                         </div>
                     </div>
                     <div class="column column-right pillars-slide">
-                        <h2>Table of Contents</h2>
+                        <div data-lang="en" data-hidden="false">
+                            <h2>Table of Contents</h2> 
+                        </div>
+                        <div data-lang="in" data-hidden="true">
+                            <h2>Daftar Isi</h2>
+                        </div>
                         <div class="column-content">
                             <div class="pillar-item">
-                                <h3>Protection</h3>
+                                <div data-lang="en" data-hidden="false">
+                                    <h3>Protection</h3>
+                                </div>
+                                <div data-lang="in" data-hidden="true">
+                                    <h3>Perlindungan</h3>
+                                </div>
                                 <div class="pillar-content">
                                     <div class="pillar-profile pillar-profile-left">
                                         <a href="#evi-tampakatu-story" class="pillar-profile-link">
@@ -130,7 +133,12 @@
                                 </div>
                             </div>
                             <div class="pillar-item">
-                                <h3>Prevention</h3>
+                                <div data-lang="en" data-hidden="false">
+                                    <h3>Prevention</h3>
+                                </div>
+                                <div data-lang="in" data-hidden="true">
+                                    <h3>Perlindungan</h3>
+                                </div>
                                 <div class="pillar-content">
                                     <div class="pillar-profile pillar-profile-left">
                                         <a href="#rukmini-paata-toheke-story" class="pillar-profile-link">
@@ -157,7 +165,12 @@
                                 </div>
                             </div>
                             <div class="pillar-item">
-                                <h3>Participation</h3>
+                                <div data-lang="en" data-hidden="false">
+                                    <h3>Participation</h3>
+                                </div>
+                                <div data-lang="in" data-hidden="true">
+                                    <h3>Partisipasi</h3>
+                                </div>
                                 <div class="pillar-content">
                                     <div class="pillar-profile pillar-profile-left">
                                         <a href="#fitrah-story" class="pillar-profile-link">
@@ -184,7 +197,12 @@
                                 </div>
                             </div>
                             <div class="pillar-item">
-                                <h3>Relief & Recovery</h3>
+                                <div data-lang="en" data-hidden="false">
+                                    <h3>Relief & Recovery</h3>
+                                </div>
+                                <div data-lang="in" data-hidden="true">
+                                    <h3>Bantuan & Pemulihan </h3>
+                                </div>
                                 <div class="pillar-content">
                                     <div class="pillar-profile pillar-profile-left">
                                         <a href="#martince-baleona-story" class="pillar-profile-link">
@@ -214,26 +232,16 @@
                     </div>
                 </div>
             </section>
-            <!-- <section id="four-pillars" class="section section-pillars">
-                <div class="section-bg parallax zoom"></div>
-                <div class="section-content">
-                    <div class="pillars-content">
-                        <p>The Women, Peace and Security (WPS) agenda is built on four main pillars:</p>
-                        <ul>
-                            <li><span class="sub-bold">Protection:</span> Safeguarding the rights and safety of women and girls during conflict and crises.</li>
-                            <li><span class="sub-bold">Prevention:</span> Working to stop violence and conflict before it happens, including addressing risks of gender-based violence.</li>
-                            <li><span class="sub-bold">Participation:</span> Ensuring women have a real voice and role in peace talks, decision-making, and community efforts.</li>
-                            <li><span class="sub-bold">Relief & Recovery:</span> Supporting women, families, and communities to heal and rebuild after conflict or disaster.</li>
-                        </ul>
-                        <p>Together, these pillars highlight that lasting peace is only possible when women's experiences and leadership are fully recognized and included.</p>
-                    </div>
-                </div>
-            </section> -->
             <section id="intro-0" class="section section-intro intro">
                 <div class="section-bg parallax zoom" data-bg="images/bg-intro-0.jpg"></div>
                 <div class="section-content">
                     <div class="title-box">
-                        <h2>Introduction</h2>
+                        <div data-lang="en" data-hidden="false">
+                            <h2>Introduction</h2>
+                        </div>
+                        <div data-lang="in" data-hidden="true">
+                            <h2>Pendahuluan</h2>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -774,8 +782,8 @@
                 <div class="section-bg parallax fixed-bg" data-bg="images/bg-profile-rukmini-1.jpg"></div>
                 <div class="overlay-container gradient-overlay"></div>
                 <div class="section-content">
-                    <div class="column-profile-container full init-slide">
-                        <div class="text-box sc-center-left box-light narrow fade">
+                    <div class="column-profile-container full">
+                        <div class="text-box sc-center-left box-light narrow fade init-slide">
                             <div data-lang="en" data-hidden="false">
                                 <p>Rukmini Paata Toheke, adorned in a vibrant beaded headband symbolizing the Kulawi Moma tribe's heritage, stands at the forefront of a cultural revival in Central Sulawesi, Indonesia. Through her efforts, the role of Tina Ngata—traditional women leaders—has been restored in Toro village after its suppression during colonial rule.</p>
                                 <p>The role of Tina Ngata is rooted in the Kulawi people's history. These women are custodians of traditional wisdom, provide community-centered leadership, and act as mediators, ensuring peace within the tribe and with external entities. For Rukmini, reestablishing this role was a seven-year journey of perseverance and dedication.</p>
@@ -1764,10 +1772,21 @@
                 </div>
             </section>
             <section id="video" class="section section-video">
-                <div class="section-content" style="display:flex;justify-content:center;align-items:center;height:100vh;width:100vw;">
-                    <div style="position:relative;width:100%;height:0;padding-bottom:56.25%;">
-                        <iframe src="https://www.youtube.com/embed/is4Ev2mYtXc?autoplay=0&fs=1" title="Harapan Baru Youtube Video" frameborder="0" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+                <div class="section-bg parallax zoom" data-bg="images/bg-overlay.jpg"></div>
+                <div class="section-content">
+                    <div class="text-box sc-center wide init-slide">
+                        <div data-lang="en" data-hidden="false">
+                            <p>Every page carries a voice, every voice carries hope.<br />Experience the story of Harapan Baru come alive.</p>
+                            <p>Click to begin, and be inspired.</p>
+                        </div>
+                        <div data-lang="in" data-hidden="true">
+                            <p>Every page carries a voice, every voice carries hope.<br />Experience the story of Harapan Baru come alive.</p>
+                            <p>Click to begin, and be inspired.</p>
+                        </div>
                     </div>
+                </div>
+                <div class="section-video-container">
+                    <iframe src="https://www.youtube.com/embed/is4Ev2mYtXc?enablejsapi=1" allow="autoplay" frameborder="0" title="Harapan Baru Youtube Video" frameborder="0" allowfullscreen></iframe>
                 </div>
             </section>
             <section id="outro" class="section section-outro-cover section-outro narrow">
@@ -1794,5 +1813,6 @@
                 </div>
             </section>
         </main>
+        <script src="https://www.youtube.com/iframe_api"></script>
     </body>
 </html>

@@ -777,6 +777,19 @@ nav.main-navigation .main-links {
   .pillar-profile img {
     max-width: 60px;
   }
+
+  .pillars-slide h3 {
+    text-align: center;
+  }
+
+  .pillars-slide .column-content {
+    overflow: auto;
+    height: 50%;
+  }
+
+  .pillar-content {
+    justify-content: center;
+  }
 }
 
 /* Section Intro */

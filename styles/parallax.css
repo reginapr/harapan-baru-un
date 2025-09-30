@@ -149,6 +149,13 @@ nav.main-navigation .main-links {
   z-index: 2;
 }
 
+@media (max-width: 768px) {
+  nav.main-navigation {
+    top: 16px;
+    right: 16px;
+  }
+}
+
 /* Sound */
 #sound-control {
   display: flex;

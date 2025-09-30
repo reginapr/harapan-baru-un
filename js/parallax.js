@@ -873,4 +873,10 @@ document.addEventListener('DOMContentLoaded', function() {
     touchEndY = null;
   });
 
+  const pillars = document.querySelector('.section-women .column-content');
+  pillars.addEventListener('touchend', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+  }, { passive: false });
+
 });

@@ -773,6 +773,10 @@ nav.main-navigation .main-links {
   .column-content {
     margin-left: 0;
   }
+
+  .pillar-profile img {
+    max-width: 60px;
+  }
 }
 
 /* Section Intro */
@@ -972,6 +976,10 @@ nav.main-navigation .main-links {
 
   .text-box h2 {
     font-size: 20px;
+  }
+
+  .box-light {
+    padding: 20px;
   }
 }
 

@@ -1014,7 +1014,8 @@ nav.main-navigation .main-links {
     font-size: 20px;
   }
 
-  .box-light {
+  .box-light,
+  .box-dark {
     padding: 20px;
   }
 }

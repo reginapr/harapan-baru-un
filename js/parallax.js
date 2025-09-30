@@ -893,6 +893,15 @@ document.addEventListener('DOMContentLoaded', function() {
     // Only trigger section swipe if not interacting with scrollable element
     if (!isTouchingScrollable && Math.abs(deltaY) > 40) {
       handleCustomScroll(deltaY);
+    } else if (isTouchingScrollable && Math.abs(deltaY) > 40) {
+      // If interacting with scrollable, only allow section swipe if at edge
+      const atTop = scrollable.scrollTop === 0;
+      const atBottom = Math.ceil(scrollable.scrollTop + scrollable.clientHeight) >= scrollable.scrollHeight;
+
+      if ((deltaY < 0 && atTop) || (deltaY > 0 && atBottom)) {
+        handleCustomScroll(deltaY);
+      }
+      // Otherwise, do nothing (let user scroll inside the element)
     }
 
     touchStartY = null;

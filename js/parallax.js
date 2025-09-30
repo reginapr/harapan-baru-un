@@ -717,7 +717,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  function handleCustomScroll(e, deltaY) {
+  function handleCustomScroll(deltaY) {
 
     const overlay = document.querySelector('.section-full-overlay');
     if (overlay && !overlay.classList.contains('slide-up')) {
@@ -742,7 +742,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (initCounter < textBoxes.length) {
           if (!textBoxScrollLock) {
             textBoxScrollLock = true;
-            let newIndex = updateIndex(e.deltaY);
+            let newIndex = updateIndex(deltaY);
             currentIndex = newIndex;
             setTimeout(() => {
               textBoxScrollLock = false;
@@ -866,7 +866,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Set a threshold to avoid accidental triggers
     if (Math.abs(deltaY) > 40) { // You can adjust this threshold
       // Simulate wheel event: negative deltaY = scroll up, positive = scroll down
-      handleCustomScroll(e, deltaY);
+      handleCustomScroll(deltaY);
     }
 
     touchStartY = null;

@@ -483,7 +483,7 @@ nav.main-navigation .main-links {
 
 @media (max-width: 768px) {
   .section-overlay-text {
-    font-size: 20px;
+    font-size: 18px;
     margin-top: -32px;
   }
 
@@ -946,7 +946,7 @@ nav.main-navigation .main-links {
 
 @media (max-width: 768px) {
   .text-box {
-    font-size: 16px;
+    font-size: 14px;
   }
 
   .text-box.wide,
@@ -968,6 +968,10 @@ nav.main-navigation .main-links {
     bottom: auto;
     transform: translateY(0);
     align-self: center;
+  }
+
+  .text-box h2 {
+    font-size: 20px;
   }
 }
 
@@ -1187,11 +1191,16 @@ nav.main-navigation .main-links {
   }
 
   .section-profile p {
-    font-size: 16px;
+    font-size: 14px;
   }
 
-  .footnote p {
+  .section-profile .footnote p {
+    font-size: 12px;
     text-align: center;
+  }
+
+  .section-gallery .footnote p {
+    font-size: 14px;
   }
 
   .footnote.right {
@@ -1199,7 +1208,7 @@ nav.main-navigation .main-links {
   }
 
   .profile-category {
-    font-size: 24px;
+    font-size: 20px;
     text-align: right;
   }
 

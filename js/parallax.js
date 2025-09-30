@@ -369,7 +369,7 @@ document.addEventListener('DOMContentLoaded', function() {
               iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
           });
       }
-  }
+}
 
   let ytPlayer;
   let isVideoPlaying = true; // Track play state
@@ -421,12 +421,139 @@ document.addEventListener('DOMContentLoaded', function() {
       });
   }
 
-  // Example: Attach to all flag elements
   document.querySelectorAll('.flag').forEach(flag => {
       flag.addEventListener('click', function() {
           toggleLangFlag(this);
       });
   });
+
+  // function handleTextBoxScroll(current, isScrollUp) {
+  //   // Handle video section scroll first
+  //   if (handleVideoSectionScroll(current, isScrollUp)) {
+  //     return;
+  //   }
+
+  //   // Only run text-box logic if not on video section
+  //   if (current.id !== 'video') {
+  //     const textBoxes = current.querySelectorAll('.text-box');
+  //     if (textBoxes.length > 0 && current.classList.contains('visible')) {
+  //       const initCounter = counter + 1;
+  //       if (initCounter < textBoxes.length) {
+  //         if (!textBoxScrollLock) {
+  //           textBoxScrollLock = true;
+  //           let newIndex = updateIndex(e.deltaY);
+  //           currentIndex = newIndex;
+  //           setTimeout(() => {
+  //             textBoxScrollLock = false;
+  //           }, TEXTBOX_SCROLL_LOCK_MS);
+  //         }
+
+  //         // Show/hide text-boxes as before
+  //         if (!isScrollUp) {
+  //           counter = counter + 1;
+            
+  //           if (counter > 0) {
+  //             if (currentIndex > 0 && textBoxes[currentIndex]) {
+  //               if (textBoxes[currentIndex - 1]) {
+  //                 textBoxes[currentIndex - 1].classList.remove('fade-in', 'slide-up');
+  //                 textBoxes[0].classList.add('hidden');
+  //               }
+
+  //               if (textBoxes[currentIndex].classList.contains('slide')) {
+  //                 textBoxes[currentIndex].classList.add('slide-up');
+  //                 textBoxes[currentIndex].classList.remove('fade-in');
+  //               } else if (textBoxes[currentIndex].classList.contains('fade')) {
+  //                 textBoxes[currentIndex].classList.add('fade-in');
+  //                 textBoxes[currentIndex].classList.remove('slide-up');
+  //               }
+
+  //               if (
+  //                 current.classList.contains('last') &&
+  //                 currentIndex === textBoxes.length - 1
+  //               ) {
+  //                 replaceGradientWithOverlay(current);
+  //               }
+  //             } else {
+  //               textBoxes[0].classList.remove('fade-in', 'slide-up');
+  //             }
+  //             return;
+  //           } 
+  //         } else {
+  //           // Scroll up
+  //           counter = counter - 1;
+            
+  //           if (counter < 0) {
+  //             const prevSection = getPreviousSection(current);
+  //             if (prevSection) {
+  //               // Reset text-box index for the previous section
+  //               currentIndex = 1;
+  //               index = 0;
+  //               counter = 0;
+              
+  //               const prevTextBoxes = prevSection.querySelectorAll('.text-box');
+  //               if (prevTextBoxes.length && prevTextBoxes[0].classList.contains('init-slide')) {
+  //                 prevTextBoxes[0].classList.remove('fade-in', 'slide-up', 'hidden');
+  //               }
+                
+  //             }
+  //           } else {
+  //             textBoxes[currentIndex + 1].classList.remove('fade-in', 'slide-up');
+            
+  //             if (textBoxes[currentIndex].classList.contains('slide') || textBoxes[currentIndex].classList.contains('init-slide')) {
+  //               textBoxes[currentIndex].classList.add('slide-up');
+  //               textBoxes[currentIndex].classList.remove('fade-in');
+  //             } else if (textBoxes[currentIndex].classList.contains('fade')) {
+  //               textBoxes[currentIndex].classList.add('fade-in');
+  //               textBoxes[currentIndex].classList.remove('slide-up');
+  //             }
+
+  //             return;
+  //           }
+  //         }
+
+  //         console.log('Current index:', currentIndex, 'Total text boxes:', textBoxes.length);
+  //       } else {
+  //         // All text-boxes shown, reset index for next section
+  //         currentIndex = 1;
+  //         index = 0;
+  //         counter = 0;
+          
+  //         // Debug log
+  //         console.log('All text-boxes shown in section:', current.id);
+  //         console.log('Ready to scroll to next/prev section on next wheel event.');
+
+  //         if (textBoxes.length && textBoxes[0].classList.contains('init-slide')) {
+  //           textBoxes[0].classList.remove('fade-in', 'slide-up', 'hidden');
+  //         }
+
+  //         // If last section, ensure gradient is replaced
+  //         if (current.classList.contains('last')) {
+  //           replaceGradientWithOverlay(current);
+  //         }
+          
+  //         const prevSection = getPreviousSection(current);
+  //         if (prevSection) {
+  //           resetOverlayAndFootnote(current);
+  //         } 
+  //       }
+  //     }
+  //   }
+
+  //   // If no .text-box or all shown, scroll to next/prev section
+  //   if (!isScrollUp) {
+  //     const nextSection = getNextSection(current);
+  //     if (nextSection) {
+  //       console.log('Current section:', current ? current.id : null);
+  //       scrollToSection(nextSection);
+  //     }
+  //   } else {
+  //     const prevSection = getPreviousSection(current);
+  //     if (prevSection) {
+  //       console.log('Current section:', current ? current.id : null);
+  //       scrollToSection(prevSection);
+  //     }
+  //   }
+  // }
 
   let scrollDebounce = false;
   const MOUSE_DEBOUNCE_MS = 50;
@@ -455,38 +582,80 @@ document.addEventListener('DOMContentLoaded', function() {
     const isScrollUp = adjustedDeltaY < 0;
     const current = getCurrentSection();
 
+    // handleTextBoxScroll(current, isScrollUp);
+
     // Handle video section scroll first
     if (handleVideoSectionScroll(current, isScrollUp)) {
       return;
     }
 
     // Only run text-box logic if not on video section
-  if (current.id !== 'video') {
-    const textBoxes = current.querySelectorAll('.text-box');
-    if (textBoxes.length > 0 && current.classList.contains('visible')) {
-      const initCounter = counter + 1;
-      if (initCounter < textBoxes.length) {
-        if (!textBoxScrollLock) {
-          textBoxScrollLock = true;
-          let newIndex = updateIndex(e.deltaY);
-          currentIndex = newIndex;
-          setTimeout(() => {
-            textBoxScrollLock = false;
-          }, TEXTBOX_SCROLL_LOCK_MS);
-        }
+    if (current.id !== 'video') {
+      const textBoxes = current.querySelectorAll('.text-box');
+      if (textBoxes.length > 0 && current.classList.contains('visible')) {
+        const initCounter = counter + 1;
+        if (initCounter < textBoxes.length) {
+          if (!textBoxScrollLock) {
+            textBoxScrollLock = true;
+            let newIndex = updateIndex(e.deltaY);
+            currentIndex = newIndex;
+            setTimeout(() => {
+              textBoxScrollLock = false;
+            }, TEXTBOX_SCROLL_LOCK_MS);
+          }
 
-        // Show/hide text-boxes as before
-        if (!isScrollUp) {
-          counter = counter + 1;
-          
-          if (counter > 0) {
-            if (currentIndex > 0 && textBoxes[currentIndex]) {
-              if (textBoxes[currentIndex - 1]) {
-                textBoxes[currentIndex - 1].classList.remove('fade-in', 'slide-up');
-                textBoxes[0].classList.add('hidden');
+          // Show/hide text-boxes as before
+          if (!isScrollUp) {
+            counter = counter + 1;
+            
+            if (counter > 0) {
+              if (currentIndex > 0 && textBoxes[currentIndex]) {
+                if (textBoxes[currentIndex - 1]) {
+                  textBoxes[currentIndex - 1].classList.remove('fade-in', 'slide-up');
+                  textBoxes[0].classList.add('hidden');
+                }
+
+                if (textBoxes[currentIndex].classList.contains('slide')) {
+                  textBoxes[currentIndex].classList.add('slide-up');
+                  textBoxes[currentIndex].classList.remove('fade-in');
+                } else if (textBoxes[currentIndex].classList.contains('fade')) {
+                  textBoxes[currentIndex].classList.add('fade-in');
+                  textBoxes[currentIndex].classList.remove('slide-up');
+                }
+
+                if (
+                  current.classList.contains('last') &&
+                  currentIndex === textBoxes.length - 1
+                ) {
+                  replaceGradientWithOverlay(current);
+                }
+              } else {
+                textBoxes[0].classList.remove('fade-in', 'slide-up');
               }
-
-              if (textBoxes[currentIndex].classList.contains('slide')) {
+              return;
+            } 
+          } else {
+            // Scroll up
+            counter = counter - 1;
+            
+            if (counter < 0) {
+              const prevSection = getPreviousSection(current);
+              if (prevSection) {
+                // Reset text-box index for the previous section
+                currentIndex = 1;
+                index = 0;
+                counter = 0;
+              
+                const prevTextBoxes = prevSection.querySelectorAll('.text-box');
+                if (prevTextBoxes.length && prevTextBoxes[0].classList.contains('init-slide')) {
+                  prevTextBoxes[0].classList.remove('fade-in', 'slide-up', 'hidden');
+                }
+                
+              }
+            } else {
+              textBoxes[currentIndex + 1].classList.remove('fade-in', 'slide-up');
+            
+              if (textBoxes[currentIndex].classList.contains('slide') || textBoxes[currentIndex].classList.contains('init-slide')) {
                 textBoxes[currentIndex].classList.add('slide-up');
                 textBoxes[currentIndex].classList.remove('fade-in');
               } else if (textBoxes[currentIndex].classList.contains('fade')) {
@@ -494,77 +663,37 @@ document.addEventListener('DOMContentLoaded', function() {
                 textBoxes[currentIndex].classList.remove('slide-up');
               }
 
-              if (
-                current.classList.contains('last') &&
-                currentIndex === textBoxes.length - 1
-              ) {
-                replaceGradientWithOverlay(current);
-              }
-            } else {
-              textBoxes[0].classList.remove('fade-in', 'slide-up');
+              return;
             }
-            return;
-          } 
-        } else {
-          // Scroll up
-          counter = counter - 1;
-          
-          if (counter < 0) {
-            const prevSection = getPreviousSection(current);
-            if (prevSection) {
-              // Reset text-box index for the previous section
-              currentIndex = 1;
-              index = 0;
-              counter = 0;
-            
-              const prevTextBoxes = prevSection.querySelectorAll('.text-box');
-              if (prevTextBoxes.length && prevTextBoxes[0].classList.contains('init-slide')) {
-                prevTextBoxes[0].classList.remove('fade-in', 'slide-up', 'hidden');
-              }
-              
-            }
-          } else {
-            textBoxes[currentIndex + 1].classList.remove('fade-in', 'slide-up');
-          
-            if (textBoxes[currentIndex].classList.contains('slide') || textBoxes[currentIndex].classList.contains('init-slide')) {
-              textBoxes[currentIndex].classList.add('slide-up');
-              textBoxes[currentIndex].classList.remove('fade-in');
-            } else if (textBoxes[currentIndex].classList.contains('fade')) {
-              textBoxes[currentIndex].classList.add('fade-in');
-              textBoxes[currentIndex].classList.remove('slide-up');
-            }
-
-            return;
           }
-        }
 
-        console.log('Current index:', currentIndex, 'Total text boxes:', textBoxes.length);
-      } else {
-        // All text-boxes shown, reset index for next section
-        currentIndex = 1;
-        index = 0;
-        counter = 0;
-        
-        // Debug log
-        console.log('All text-boxes shown in section:', current.id);
-        console.log('Ready to scroll to next/prev section on next wheel event.');
+          console.log('Current index:', currentIndex, 'Total text boxes:', textBoxes.length);
+        } else {
+          // All text-boxes shown, reset index for next section
+          currentIndex = 1;
+          index = 0;
+          counter = 0;
+          
+          // Debug log
+          console.log('All text-boxes shown in section:', current.id);
+          console.log('Ready to scroll to next/prev section on next wheel event.');
 
-        if (textBoxes.length && textBoxes[0].classList.contains('init-slide')) {
-          textBoxes[0].classList.remove('fade-in', 'slide-up', 'hidden');
-        }
+          if (textBoxes.length && textBoxes[0].classList.contains('init-slide')) {
+            textBoxes[0].classList.remove('fade-in', 'slide-up', 'hidden');
+          }
 
-        // If last section, ensure gradient is replaced
-        if (current.classList.contains('last')) {
-          replaceGradientWithOverlay(current);
+          // If last section, ensure gradient is replaced
+          if (current.classList.contains('last')) {
+            replaceGradientWithOverlay(current);
+          }
+          
+          const prevSection = getPreviousSection(current);
+          if (prevSection) {
+            resetOverlayAndFootnote(current);
+          } 
         }
-        
-        const prevSection = getPreviousSection(current);
-        if (prevSection) {
-          resetOverlayAndFootnote(current);
-        } 
       }
     }
-  }
 
     // If no .text-box or all shown, scroll to next/prev section
     if (!isScrollUp) {
@@ -588,10 +717,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  function handleCustomScroll(deltaY) {
-    // Copy the logic from inside your wheel event handler here,
-    // replacing e.deltaY with deltaY.
-    // For example:
+  function handleCustomScroll(e, deltaY) {
 
     const overlay = document.querySelector('.section-full-overlay');
     if (overlay && !overlay.classList.contains('slide-up')) {
@@ -609,32 +735,72 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Only run text-box logic if not on video section
-  if (current.id !== 'video') {
-    const textBoxes = current.querySelectorAll('.text-box');
-    if (textBoxes.length > 0 && current.classList.contains('visible')) {
-      const initCounter = counter + 1;
-      if (initCounter < textBoxes.length) {
-        if (!textBoxScrollLock) {
-          textBoxScrollLock = true;
-          let newIndex = updateIndex(e.deltaY);
-          currentIndex = newIndex;
-          setTimeout(() => {
-            textBoxScrollLock = false;
-          }, TEXTBOX_SCROLL_LOCK_MS);
-        }
+    if (current.id !== 'video') {
+      const textBoxes = current.querySelectorAll('.text-box');
+      if (textBoxes.length > 0 && current.classList.contains('visible')) {
+        const initCounter = counter + 1;
+        if (initCounter < textBoxes.length) {
+          if (!textBoxScrollLock) {
+            textBoxScrollLock = true;
+            let newIndex = updateIndex(e.deltaY);
+            currentIndex = newIndex;
+            setTimeout(() => {
+              textBoxScrollLock = false;
+            }, TEXTBOX_SCROLL_LOCK_MS);
+          }
 
-        // Show/hide text-boxes as before
-        if (!isScrollUp) {
-          counter = counter + 1;
-          
-          if (counter > 0) {
-            if (currentIndex > 0 && textBoxes[currentIndex]) {
-              if (textBoxes[currentIndex - 1]) {
-                textBoxes[currentIndex - 1].classList.remove('fade-in', 'slide-up');
-                textBoxes[0].classList.add('hidden');
+          // Show/hide text-boxes as before
+          if (!isScrollUp) {
+            counter = counter + 1;
+            
+            if (counter > 0) {
+              if (currentIndex > 0 && textBoxes[currentIndex]) {
+                if (textBoxes[currentIndex - 1]) {
+                  textBoxes[currentIndex - 1].classList.remove('fade-in', 'slide-up');
+                  textBoxes[0].classList.add('hidden');
+                }
+
+                if (textBoxes[currentIndex].classList.contains('slide')) {
+                  textBoxes[currentIndex].classList.add('slide-up');
+                  textBoxes[currentIndex].classList.remove('fade-in');
+                } else if (textBoxes[currentIndex].classList.contains('fade')) {
+                  textBoxes[currentIndex].classList.add('fade-in');
+                  textBoxes[currentIndex].classList.remove('slide-up');
+                }
+
+                if (
+                  current.classList.contains('last') &&
+                  currentIndex === textBoxes.length - 1
+                ) {
+                  replaceGradientWithOverlay(current);
+                }
+              } else {
+                textBoxes[0].classList.remove('fade-in', 'slide-up');
               }
-
-              if (textBoxes[currentIndex].classList.contains('slide')) {
+              return;
+            } 
+          } else {
+            // Scroll up
+            counter = counter - 1;
+            
+            if (counter < 0) {
+              const prevSection = getPreviousSection(current);
+              if (prevSection) {
+                // Reset text-box index for the previous section
+                currentIndex = 1;
+                index = 0;
+                counter = 0;
+              
+                const prevTextBoxes = prevSection.querySelectorAll('.text-box');
+                if (prevTextBoxes.length && prevTextBoxes[0].classList.contains('init-slide')) {
+                  prevTextBoxes[0].classList.remove('fade-in', 'slide-up', 'hidden');
+                }
+                
+              }
+            } else {
+              textBoxes[currentIndex + 1].classList.remove('fade-in', 'slide-up');
+            
+              if (textBoxes[currentIndex].classList.contains('slide') || textBoxes[currentIndex].classList.contains('init-slide')) {
                 textBoxes[currentIndex].classList.add('slide-up');
                 textBoxes[currentIndex].classList.remove('fade-in');
               } else if (textBoxes[currentIndex].classList.contains('fade')) {
@@ -642,90 +808,50 @@ document.addEventListener('DOMContentLoaded', function() {
                 textBoxes[currentIndex].classList.remove('slide-up');
               }
 
-              if (
-                current.classList.contains('last') &&
-                currentIndex === textBoxes.length - 1
-              ) {
-                replaceGradientWithOverlay(current);
-              }
-            } else {
-              textBoxes[0].classList.remove('fade-in', 'slide-up');
+              return;
             }
-            return;
-          } 
-        } else {
-          // Scroll up
-          counter = counter - 1;
-          
-          if (counter < 0) {
-            const prevSection = getPreviousSection(current);
-            if (prevSection) {
-              // Reset text-box index for the previous section
-              currentIndex = 1;
-              index = 0;
-              counter = 0;
-            
-              const prevTextBoxes = prevSection.querySelectorAll('.text-box');
-              if (prevTextBoxes.length && prevTextBoxes[0].classList.contains('init-slide')) {
-                prevTextBoxes[0].classList.remove('fade-in', 'slide-up', 'hidden');
-              }
-              
-            }
-          } else {
-            textBoxes[currentIndex + 1].classList.remove('fade-in', 'slide-up');
-          
-            if (textBoxes[currentIndex].classList.contains('slide') || textBoxes[currentIndex].classList.contains('init-slide')) {
-              textBoxes[currentIndex].classList.add('slide-up');
-              textBoxes[currentIndex].classList.remove('fade-in');
-            } else if (textBoxes[currentIndex].classList.contains('fade')) {
-              textBoxes[currentIndex].classList.add('fade-in');
-              textBoxes[currentIndex].classList.remove('slide-up');
-            }
-
-            return;
           }
-        }
 
-        console.log('Current index:', currentIndex, 'Total text boxes:', textBoxes.length);
-      } else {
-        // All text-boxes shown, reset index for next section
-        currentIndex = 1;
-        index = 0;
-        counter = 0;
-        
-        // Debug log
-        console.log('All text-boxes shown in section:', current.id);
-        console.log('Ready to scroll to next/prev section on next wheel event.');
+          console.log('Current index:', currentIndex, 'Total text boxes:', textBoxes.length);
+        } else {
+          // All text-boxes shown, reset index for next section
+          currentIndex = 1;
+          index = 0;
+          counter = 0;
+          
+          // Debug log
+          console.log('All text-boxes shown in section:', current.id);
+          console.log('Ready to scroll to next/prev section on next wheel event.');
 
-        if (textBoxes.length && textBoxes[0].classList.contains('init-slide')) {
-          textBoxes[0].classList.remove('fade-in', 'slide-up', 'hidden');
-        }
+          if (textBoxes.length && textBoxes[0].classList.contains('init-slide')) {
+            textBoxes[0].classList.remove('fade-in', 'slide-up', 'hidden');
+          }
 
-        // If last section, ensure gradient is replaced
-        if (current.classList.contains('last')) {
-          replaceGradientWithOverlay(current);
+          // If last section, ensure gradient is replaced
+          if (current.classList.contains('last')) {
+            replaceGradientWithOverlay(current);
+          }
+          
+          const prevSection = getPreviousSection(current);
+          if (prevSection) {
+            resetOverlayAndFootnote(current);
+          } 
         }
-        
-        const prevSection = getPreviousSection(current);
-        if (prevSection) {
-          resetOverlayAndFootnote(current);
-        } 
       }
     }
-  }
 
     // If no .text-box or all shown, scroll to next/prev section
     if (!isScrollUp) {
       const nextSection = getNextSection(current);
       if (nextSection) {
-        console.log('Current section:', current ? current.id : null);
         scrollToSection(nextSection);
+        console.log('Current section:', current ? current.id : null);
       }
     } else {
       const prevSection = getPreviousSection(current);
       if (prevSection) {
-        console.log('Current section:', current ? current.id : null);
         scrollToSection(prevSection);
+        console.log('Current section:', current ? current.id : null);
       }
     }
   }
@@ -733,14 +859,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
   window.addEventListener('touchend', function(e) {
     if (touchStartY === null) return;
+
     touchEndY = e.changedTouches[0].clientY;
     const deltaY = touchStartY - touchEndY;
 
     // Set a threshold to avoid accidental triggers
     if (Math.abs(deltaY) > 40) { // You can adjust this threshold
       // Simulate wheel event: negative deltaY = scroll up, positive = scroll down
-      handleCustomScroll(deltaY);
+      handleCustomScroll(e, deltaY);
     }
+
     touchStartY = null;
     touchEndY = null;
   });

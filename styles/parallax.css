@@ -240,6 +240,12 @@ nav.main-navigation .main-links {
 
 .section-women { background: #EFE8DE; }
 
+@media (max-width: 768px) {
+  .parallax.mobile-centered {
+    background-position: 65%;
+  }
+}
+
 /* .section-bg background-image is now lazy loaded via data-bg attribute and JS */
 
 /* Profile section */
@@ -1476,6 +1482,10 @@ nav.main-navigation .main-links {
 .outro-container .social-links a:hover {
   filter: brightness(0) saturate(0%) invert(50%) sepia(80%) saturate(248%) hue-rotate(0deg);
   transition: filter 0.2s;
+}
+
+.outro-container .social-links img {
+  max-width: 32px;
 }
 
 /* .outro-container [data-hidden="true"] {

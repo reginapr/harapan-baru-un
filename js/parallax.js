@@ -873,10 +873,30 @@ document.addEventListener('DOMContentLoaded', function() {
     touchEndY = null;
   });
 
-  const pillars = document.querySelector('.section-women .column-content');
-  pillars.addEventListener('touchend', function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-  }, { passive: false });
+  let isTouchingScrollable = false;
 
+  const scrollable = document.querySelector('.section-women .column-content');
+  window.addEventListener('touchstart', function(e) {
+    if (e.touches.length === 1) {
+      touchStartY = e.touches[0].clientY;
+      // Check if touch is inside the scrollable element
+      isTouchingScrollable = scrollable && scrollable.contains(e.target);
+    }
+  });
+
+  window.addEventListener('touchend', function(e) {
+    if (touchStartY === null) return;
+
+    touchEndY = e.changedTouches[0].clientY;
+    const deltaY = touchStartY - touchEndY;
+
+    // Only trigger section swipe if not interacting with scrollable element
+    if (!isTouchingScrollable && Math.abs(deltaY) > 40) {
+      handleCustomScroll(deltaY);
+    }
+
+    touchStartY = null;
+    touchEndY = null;
+    isTouchingScrollable = false;
+  });
 });

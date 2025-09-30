@@ -732,6 +732,7 @@ nav.main-navigation .main-links {
   .pillar-content {
     padding-bottom: 45px;
     max-width: 150px;
+    gap: 10px;
   }
 
   .pillar-content .pillar-profile-caption {
@@ -774,6 +775,10 @@ nav.main-navigation .main-links {
     margin-left: 0;
   }
 
+  .pillar-profile {
+    width: 100%;
+  }
+
   .pillar-profile img {
     max-width: 60px;
   }
@@ -782,13 +787,25 @@ nav.main-navigation .main-links {
     text-align: center;
   }
 
-  .pillars-slide .column-content {
-    overflow: auto;
-    height: 75%;
-  }
-
   .pillar-content {
     justify-content: center;
+    align-items: flex-start;
+    width: 320px;
+    padding-bottom: 16px;
+  }
+
+  .pillar-content .pillar-profile-caption {
+    position: relative;
+    bottom: auto;
+    opacity: 1;
+    align-items: flex-start;
+    margin-left: 4px
+  }
+
+  .pillar-profile-link {
+    display: flex;
+    text-decoration: none;
+    align-items: flex-start;
   }
 }
 

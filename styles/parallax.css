@@ -1349,6 +1349,10 @@ nav.main-navigation .main-links {
   .column-quote .quote-image img {
     width: 75%;
   }
+
+  .quote-text {
+    font-size: 12px;
+  }
 }
 
 /* Video */

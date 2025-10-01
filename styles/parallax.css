@@ -1177,8 +1177,8 @@ main[data-fs="true"] .row-img-map{
 
   .text-box.wide,
   .text-box.narrow {
-    max-width: 80%;
-    margin-left: -32px;
+    max-width: 85%;
+    margin-left: -10px;
     margin-top: -60px;
   }
 

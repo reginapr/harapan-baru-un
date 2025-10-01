@@ -169,7 +169,7 @@ nav.main-navigation .story-chapters.hidden {
 .chapter-link {
   height: 44px;
   width: 44px;
-  padding: 4px;
+  padding: 0 4px;
   position: absolute;
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
@@ -266,6 +266,16 @@ nav.main-navigation .chapter-image {
   nav.main-navigation {
     top: 16px;
     right: 16px;
+  }
+
+  nav.main-navigation .story-chapters.active {
+    max-width: 113px;
+    flex-wrap: wrap;
+    width: 200px;
+    right: 0;
+    position: absolute;
+    display: flex;
+    flex-direction: row;
   }
 }
 
@@ -1381,6 +1391,10 @@ main[data-fs="true"] .row-img-map{
 
   .profile-category span {
     text-align: left;
+  }
+
+  .profile-category span::before {
+    margin: 0 8px
   }
 
   .text-box.highlight p {

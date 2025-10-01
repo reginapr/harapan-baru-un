@@ -78,17 +78,6 @@ document.addEventListener('DOMContentLoaded', function() {
       window.lastVisibleSection = newSection;
   }
 
-  // Scroll up to previous section
-  // function scrollUpToSection(section) {
-  //   if (!isScrolling && section) {
-  //     isScrolling = true;
-  //     section.scrollIntoView({ behavior: 'smooth' });
-  //     setTimeout(() => {
-  //       isScrolling = false;
-  //     }, 1000);
-  //   }
-  // }
-
   const storyChapters = document.querySelector('.story-chapters');
 
   function activateFirstChapterLink() {
@@ -134,6 +123,9 @@ document.addEventListener('DOMContentLoaded', function() {
         if (storyChapters.classList.contains('active')) {
           storyChapters.classList.remove('active');
         } 
+        document.querySelectorAll('.chapter-link:hover').forEach(el => {
+          if (typeof el.blur === 'function') el.blur();
+        });
         targetSection.scrollIntoView();
       }
     });

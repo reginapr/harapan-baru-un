@@ -1317,6 +1317,7 @@ main[data-fs="true"] .row-img-map{
 .profile-category span {
   display: flex;
   position: relative;
+  align-items: center;
 }
 
 .profile-category span::before {

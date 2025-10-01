@@ -1137,7 +1137,9 @@ main[data-fs="true"] .row-img-map{
 
   .text-box.wide,
   .text-box.narrow {
-    max-width: 75%;
+    max-width: 80%;
+    margin-left: -32px;
+    margin-top: -60px;
   }
 
   .sc-top-left,

@@ -112,6 +112,26 @@ document.addEventListener('DOMContentLoaded', function() {
 
   activateFirstChapterLink();
 
+  function deactivateStoryChaptersOnOutsideClick() {
+  const storyChapters = document.querySelector('.story-chapters');
+  if (!storyChapters) return;
+
+  // Only run on mobile
+  if (/Mobi|Android/i.test(navigator.userAgent)) {
+    document.addEventListener('click', function(e) {
+      // If click is outside storyChapters and storyChapters is active
+      if (
+        storyChapters.classList.contains('active') &&
+        !storyChapters.contains(e.target)
+      ) {
+        storyChapters.classList.remove('active');
+      }
+    });
+  }
+}
+
+deactivateStoryChaptersOnOutsideClick();
+
   // Intercept anchor links to sections, scroll and add visible without changing URL
   document.querySelectorAll('a[href^="#"]').forEach(link => {
     link.addEventListener('click', function(e) {

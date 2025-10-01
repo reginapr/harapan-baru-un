@@ -1,9 +1,8 @@
 body, html {
-  height: 100%;
+  height: 100vh;
   margin: 0;
   font-family: 'EB Garamond', Garamond, serif;
-  overflow-x: hidden;
-  overflow-y: hidden;
+  overflow: hidden;
   letter-spacing: 0.5px;
 }
 
@@ -18,6 +17,7 @@ h3 {
 
 .section {
   position: relative;
+  min-height: 100vh;
   height: 100vh;
   width: 100vw;
   align-items: center;
@@ -47,7 +47,7 @@ div[data-hidden="true"] {
 nav.main-navigation {
   position: fixed;
   top: 32px;
-  right: 32px;
+  right: 16px;
   z-index: 5;
 }
 
@@ -288,7 +288,7 @@ nav.main-navigation .main-links {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0,0,0,0.9);
+  background: rgba(0,0,0,0.75);
   z-index: 3;
   transition: background 1s ease-in-out;
 }
@@ -364,6 +364,10 @@ nav.main-navigation .main-links {
   position: relative;
   z-index: 2;
   align-self: center;
+}
+
+main[data-fs="true"] .row-img-map{
+  max-width: 600px;
 }
 
 .row-img-centered {
@@ -620,7 +624,7 @@ nav.main-navigation .main-links {
 
 .pillar-profile img {
     border-radius: 8px;
-    max-width: 80px
+    max-width: 70px
 }
 
 .pillar-profile img:hover {
@@ -639,7 +643,7 @@ nav.main-navigation .main-links {
 }
 
 .profile-name {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 700;
 }
 
@@ -669,7 +673,7 @@ nav.main-navigation .main-links {
   right: 0;
   position: absolute;
   box-sizing: border-box;
-  bottom: 0;
+  bottom: 7px;
   opacity: 0;
   transition: opacity 0.3s;
 }
@@ -1452,14 +1456,25 @@ nav.main-navigation .main-links {
 }
 
 .section-video-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    width: 100vw;
-    position: absolute;
-    top: 0;
-    left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.section-video .play-button {
+  max-width: 70px;
+  margin-top: 32px;
+  cursor: pointer
+}
+
+.section-video .play-button:hover {
+  opacity: 0.2;
+  transition: opacity 0.2s;
 }
 
 /* Outro */

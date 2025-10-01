@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const bgMusic = document.getElementById('bg-music');
 
   if (soundControl && bgMusic) {
+      bgMusic.volume = 0.1; 
       soundControl.addEventListener('click', function(e) {
           e.preventDefault();
 
@@ -78,15 +79,15 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // Scroll up to previous section
-  function scrollUpToSection(section) {
-    if (!isScrolling && section) {
-      isScrolling = true;
-      section.scrollIntoView({ behavior: 'smooth' });
-      setTimeout(() => {
-        isScrolling = false;
-      }, 1000);
-    }
-  }
+  // function scrollUpToSection(section) {
+  //   if (!isScrolling && section) {
+  //     isScrolling = true;
+  //     section.scrollIntoView({ behavior: 'smooth' });
+  //     setTimeout(() => {
+  //       isScrolling = false;
+  //     }, 1000);
+  //   }
+  // }
 
   // Intercept anchor links to sections, scroll and add visible without changing URL
   document.querySelectorAll('a[href^="#"]').forEach(link => {
@@ -200,8 +201,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!isScrolling && section) {
       isScrolling = true;
 
-      setVisibleSection(section);
-
       if (section.querySelector('.pillars-slide')) {
         pillarsAnimation();
       }
@@ -233,6 +232,7 @@ document.addEventListener('DOMContentLoaded', function() {
       });
       
       section.scrollIntoView({ behavior: 'smooth' });
+      setVisibleSection(section);
       isScrolling = false;
 
       // setTimeout(() => {
@@ -385,6 +385,7 @@ document.addEventListener('DOMContentLoaded', function() {
           } else {
             isVideoPlaying = false;
             if (event.data === YT.PlayerState.PAUSED) {
+              console.log('Video paused');
               document.querySelector('#video').classList.remove('video-play');
             }
           }
@@ -405,9 +406,9 @@ document.addEventListener('DOMContentLoaded', function() {
           }
       });
 
-      const main = document.getElementById('main');
-      if (main) {
-          main.setAttribute('data-lang', selectedLang);
+      const storybook = document.getElementById('storybook');
+      if (storybook) {
+          storybook.setAttribute('data-lang', selectedLang);
       }
       // Update data-hidden for all elements with data-lang
       document.querySelectorAll('[data-lang]').forEach(el => {
@@ -426,134 +427,6 @@ document.addEventListener('DOMContentLoaded', function() {
           toggleLangFlag(this);
       });
   });
-
-  // function handleTextBoxScroll(current, isScrollUp) {
-  //   // Handle video section scroll first
-  //   if (handleVideoSectionScroll(current, isScrollUp)) {
-  //     return;
-  //   }
-
-  //   // Only run text-box logic if not on video section
-  //   if (current.id !== 'video') {
-  //     const textBoxes = current.querySelectorAll('.text-box');
-  //     if (textBoxes.length > 0 && current.classList.contains('visible')) {
-  //       const initCounter = counter + 1;
-  //       if (initCounter < textBoxes.length) {
-  //         if (!textBoxScrollLock) {
-  //           textBoxScrollLock = true;
-  //           let newIndex = updateIndex(e.deltaY);
-  //           currentIndex = newIndex;
-  //           setTimeout(() => {
-  //             textBoxScrollLock = false;
-  //           }, TEXTBOX_SCROLL_LOCK_MS);
-  //         }
-
-  //         // Show/hide text-boxes as before
-  //         if (!isScrollUp) {
-  //           counter = counter + 1;
-            
-  //           if (counter > 0) {
-  //             if (currentIndex > 0 && textBoxes[currentIndex]) {
-  //               if (textBoxes[currentIndex - 1]) {
-  //                 textBoxes[currentIndex - 1].classList.remove('fade-in', 'slide-up');
-  //                 textBoxes[0].classList.add('hidden');
-  //               }
-
-  //               if (textBoxes[currentIndex].classList.contains('slide')) {
-  //                 textBoxes[currentIndex].classList.add('slide-up');
-  //                 textBoxes[currentIndex].classList.remove('fade-in');
-  //               } else if (textBoxes[currentIndex].classList.contains('fade')) {
-  //                 textBoxes[currentIndex].classList.add('fade-in');
-  //                 textBoxes[currentIndex].classList.remove('slide-up');
-  //               }
-
-  //               if (
-  //                 current.classList.contains('last') &&
-  //                 currentIndex === textBoxes.length - 1
-  //               ) {
-  //                 replaceGradientWithOverlay(current);
-  //               }
-  //             } else {
-  //               textBoxes[0].classList.remove('fade-in', 'slide-up');
-  //             }
-  //             return;
-  //           } 
-  //         } else {
-  //           // Scroll up
-  //           counter = counter - 1;
-            
-  //           if (counter < 0) {
-  //             const prevSection = getPreviousSection(current);
-  //             if (prevSection) {
-  //               // Reset text-box index for the previous section
-  //               currentIndex = 1;
-  //               index = 0;
-  //               counter = 0;
-              
-  //               const prevTextBoxes = prevSection.querySelectorAll('.text-box');
-  //               if (prevTextBoxes.length && prevTextBoxes[0].classList.contains('init-slide')) {
-  //                 prevTextBoxes[0].classList.remove('fade-in', 'slide-up', 'hidden');
-  //               }
-                
-  //             }
-  //           } else {
-  //             textBoxes[currentIndex + 1].classList.remove('fade-in', 'slide-up');
-            
-  //             if (textBoxes[currentIndex].classList.contains('slide') || textBoxes[currentIndex].classList.contains('init-slide')) {
-  //               textBoxes[currentIndex].classList.add('slide-up');
-  //               textBoxes[currentIndex].classList.remove('fade-in');
-  //             } else if (textBoxes[currentIndex].classList.contains('fade')) {
-  //               textBoxes[currentIndex].classList.add('fade-in');
-  //               textBoxes[currentIndex].classList.remove('slide-up');
-  //             }
-
-  //             return;
-  //           }
-  //         }
-
-  //         console.log('Current index:', currentIndex, 'Total text boxes:', textBoxes.length);
-  //       } else {
-  //         // All text-boxes shown, reset index for next section
-  //         currentIndex = 1;
-  //         index = 0;
-  //         counter = 0;
-          
-  //         // Debug log
-  //         console.log('All text-boxes shown in section:', current.id);
-  //         console.log('Ready to scroll to next/prev section on next wheel event.');
-
-  //         if (textBoxes.length && textBoxes[0].classList.contains('init-slide')) {
-  //           textBoxes[0].classList.remove('fade-in', 'slide-up', 'hidden');
-  //         }
-
-  //         // If last section, ensure gradient is replaced
-  //         if (current.classList.contains('last')) {
-  //           replaceGradientWithOverlay(current);
-  //         }
-          
-  //         const prevSection = getPreviousSection(current);
-  //         if (prevSection) {
-  //           resetOverlayAndFootnote(current);
-  //         } 
-  //       }
-  //     }
-  //   }
-
-  //   // If no .text-box or all shown, scroll to next/prev section
-  //   if (!isScrollUp) {
-  //     const nextSection = getNextSection(current);
-  //     if (nextSection) {
-  //       console.log('Current section:', current ? current.id : null);
-  //       scrollToSection(nextSection);
-  //     }
-  //   } else {
-  //     const prevSection = getPreviousSection(current);
-  //     if (prevSection) {
-  //       console.log('Current section:', current ? current.id : null);
-  //       scrollToSection(prevSection);
-  //     }
-  //   }
-  // }
 
   let scrollDebounce = false;
   const MOUSE_DEBOUNCE_MS = 50;
@@ -872,4 +745,48 @@ document.addEventListener('DOMContentLoaded', function() {
     touchStartY = null;
     touchEndY = null;
   });
+
+  window.addEventListener('orientationchange', function() {
+    // Scroll to the first section on screen rotate
+    const firstSection = document.querySelector('section');
+    if (firstSection) {
+      firstSection.scrollIntoView({ behavior: 'smooth' });
+      setVisibleSection(firstSection);
+    }
+  });
+
+  // if (window.innerWidth > 1440) {
+  //   const main = document.getElementById('main');
+  //   document.querySelectorAll('.arrow-circle').forEach(el => {
+  //     el.addEventListener('click', function() {
+  //       const elem = document.documentElement;
+  //       if (elem.requestFullscreen) {
+  //         elem.requestFullscreen();
+  //       } else if (elem.webkitRequestFullscreen) {
+  //         elem.webkitRequestFullscreen();
+  //       } else if (elem.msRequestFullscreen) {
+  //         elem.msRequestFullscreen();
+  //       }
+
+  //       if (main) {
+  //           main.setAttribute('data-fs', true);
+  //       }
+  //     });
+  //   });
+
+  //   function onFullscreenChange() {
+  //     const isFullscreen = document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
+  //     if (!isFullscreen) {
+  //       if (main) {
+  //           main.setAttribute('data-fs', false);
+  //       }
+
+  //       console.log(window.lastVisibleSection);
+  //     }
+  //   }
+
+  //   document.addEventListener('fullscreenchange', onFullscreenChange);
+  //   document.addEventListener('webkitfullscreenchange', onFullscreenChange);
+  //   document.addEventListener('msfullscreenchange', onFullscreenChange);
+  // }
 });

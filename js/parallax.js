@@ -659,7 +659,6 @@ deactivateStoryChaptersOnOutsideClick();
   });
 
   function handleCustomScroll(deltaY) {
-
     const overlay = document.querySelector('.section-full-overlay');
     if (overlay && !overlay.classList.contains('slide-up')) {
       e.preventDefault();
@@ -800,7 +799,6 @@ deactivateStoryChaptersOnOutsideClick();
       }
     }
   }
-  
 
   window.addEventListener('touchend', function(e) {
     if (touchStartY === null) return;
@@ -826,4 +824,12 @@ deactivateStoryChaptersOnOutsideClick();
       setVisibleSection(firstSection);
     }
   });
+
+  const closeBook = document.querySelector('.close-book');
+  const storybook = document.getElementById('storybook');
+  if (closeBook && storybook) {
+    closeBook.addEventListener('click', function() {
+      storybook.classList.add('hidden');
+    });
+  }
 });

@@ -1311,6 +1311,7 @@ main[data-fs="true"] .row-img-map{
   margin-bottom: 65px;
   text-align: center;
   justify-content: center;
+  align-items: center;
 }
 
 .profile-category span {

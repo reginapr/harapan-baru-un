@@ -123,9 +123,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (storyChapters.classList.contains('active')) {
           storyChapters.classList.remove('active');
         } 
-        document.querySelectorAll('.chapter-link:hover').forEach(el => {
-          if (typeof el.blur === 'function') el.blur();
-        });
         targetSection.scrollIntoView();
       }
     });

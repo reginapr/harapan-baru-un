@@ -277,6 +277,20 @@ nav.main-navigation .chapter-image {
     display: flex;
     flex-direction: row;
   }
+
+  .chapter-link:first-child,
+  .active .chapter-link {
+    opacity: 1;
+  }
+
+  nav.main-navigation .chapter-link:hover .tooltip-wrapper {
+    opacity: 0;
+  }
+
+  .active .chapter-text,
+  .active .chapter-title {
+    display: none;
+  }
 }
 
 /* Sound */

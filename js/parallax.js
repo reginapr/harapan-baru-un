@@ -113,22 +113,22 @@ document.addEventListener('DOMContentLoaded', function() {
   activateFirstChapterLink();
 
   function deactivateStoryChaptersOnOutsideClick() {
-  const storyChapters = document.querySelector('.story-chapters');
-  if (!storyChapters) return;
+    const storyChapters = document.querySelector('.story-chapters');
+    if (!storyChapters) return;
 
-  // Only run on mobile
-  if (/Mobi|Android/i.test(navigator.userAgent)) {
-    document.addEventListener('click', function(e) {
-      // If click is outside storyChapters and storyChapters is active
-      if (
-        storyChapters.classList.contains('active') &&
-        !storyChapters.contains(e.target)
-      ) {
-        storyChapters.classList.remove('active');
-      }
-    });
+    // Only run on mobile
+    if (/Mobi|Android/i.test(navigator.userAgent)) {
+      document.addEventListener('click', function(e) {
+        // If click is outside storyChapters and storyChapters is active
+        if (
+          storyChapters.classList.contains('active') &&
+          !storyChapters.contains(e.target)
+        ) {
+          storyChapters.classList.remove('active');
+        }
+      });
+    }
   }
-}
 
 deactivateStoryChaptersOnOutsideClick();
 
@@ -137,13 +137,23 @@ deactivateStoryChaptersOnOutsideClick();
     link.addEventListener('click', function(e) {
       const targetId = this.getAttribute('href').replace('#', '');
       const targetSection = document.getElementById(targetId);
+      
       if (targetSection) {
         e.preventDefault();
         setVisibleSection(targetSection);
         if (storyChapters.classList.contains('active')) {
           storyChapters.classList.remove('active');
-        } 
+        }
         targetSection.scrollIntoView();
+
+        const sections = Array.from(document.querySelectorAll('section'));
+        const sectionIndex = sections.indexOf(targetSection);
+        
+        if (sectionIndex > 1) {
+          storyChapters.classList.remove('hidden');
+        } else {
+          storyChapters.classList.add('hidden');  
+        }
       }
     });
   });

@@ -89,6 +89,40 @@ document.addEventListener('DOMContentLoaded', function() {
   //   }
   // }
 
+  const storyChapters = document.querySelector('.story-chapters');
+
+  function activateFirstChapterLink() {
+    const firstChapterLink = document.querySelector('.chapter-link');
+    if (firstChapterLink && storyChapters) {
+      firstChapterLink.addEventListener('click', function(e) {
+        // Always prevent default first
+        e.preventDefault();
+        e.stopImmediatePropagation();
+
+        this.getAttribute('href').replace('#', '');
+        // If not active, add the class and do nothing else
+        if (!storyChapters.classList.contains('active')) {
+          storyChapters.classList.add('active');
+          return;
+        }
+
+        // If already active, manually trigger navigation
+        const targetId = this.getAttribute('href').replace('#', '');
+        const targetSection = document.getElementById(targetId);
+        if (targetSection) {
+          e.preventDefault();
+          setVisibleSection(targetSection);
+          if (storyChapters.classList.contains('active')) {
+            storyChapters.classList.remove('active');
+          } 
+          targetSection.scrollIntoView();
+        }
+      });
+    }
+  }
+
+  activateFirstChapterLink();
+
   // Intercept anchor links to sections, scroll and add visible without changing URL
   document.querySelectorAll('a[href^="#"]').forEach(link => {
     link.addEventListener('click', function(e) {
@@ -97,6 +131,9 @@ document.addEventListener('DOMContentLoaded', function() {
       if (targetSection) {
         e.preventDefault();
         setVisibleSection(targetSection);
+        if (storyChapters.classList.contains('active')) {
+          storyChapters.classList.remove('active');
+        } 
         targetSection.scrollIntoView();
       }
     });
@@ -232,12 +269,20 @@ document.addEventListener('DOMContentLoaded', function() {
       });
       
       section.scrollIntoView({ behavior: 'smooth' });
+      
       setVisibleSection(section);
       isScrolling = false;
 
-      // setTimeout(() => {
-      //   isScrolling = false;
-      // }, 1000); // Adjust duration as needed
+      const sections = Array.from(document.querySelectorAll('section'));
+      const sectionIndex = sections.indexOf(section);
+
+      if (sectionIndex > 1) {
+        storyChapters.classList.remove('hidden');
+      } else {
+        storyChapters.classList.add('hidden');  
+      }
+
+      console.log('Current section:', section ? section.id : null);
     }
   }
 
@@ -572,14 +617,14 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!isScrollUp) {
       const nextSection = getNextSection(current);
       if (nextSection) {
-        console.log('Current section:', current ? current.id : null);
         scrollToSection(nextSection);
+        // console.log('Current section:', current ? current.id : null);
       }
     } else {
       const prevSection = getPreviousSection(current);
       if (prevSection) {
-        console.log('Current section:', current ? current.id : null);
         scrollToSection(prevSection);
+        //console.log('Current section:', current ? current.id : null);
       }
     }
   });
@@ -601,6 +646,10 @@ document.addEventListener('DOMContentLoaded', function() {
     let adjustedDeltaY = deltaY;
     const isScrollUp = adjustedDeltaY < 0;
     const current = getCurrentSection();
+
+    const sections = Array.from(document.querySelectorAll('section'));
+    const sectionIndex = sections.indexOf(current); 
+    console.log(sectionIndex);
 
     // Handle video section scroll first
     if (handleVideoSectionScroll(current, isScrollUp)) {

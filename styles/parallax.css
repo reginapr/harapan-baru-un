@@ -272,7 +272,7 @@ nav.main-navigation .chapter-image {
     max-width: 113px;
     flex-wrap: wrap;
     width: 200px;
-    right: 0;
+    right: -5px;
     position: absolute;
     display: flex;
     flex-direction: row;

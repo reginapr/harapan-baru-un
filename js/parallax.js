@@ -392,7 +392,7 @@ document.addEventListener('DOMContentLoaded', function() {
     return false;
   }
 
- const videoSection = document.getElementById('video');
+  const videoSection = document.getElementById('video');
   if (videoSection) {
       const sectionContent = videoSection.querySelector('.section-content');
       const iframe = videoSection.querySelector('iframe');
@@ -403,7 +403,22 @@ document.addEventListener('DOMContentLoaded', function() {
               iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
           });
       }
-}
+  }
+
+  const videoOverlay = document.querySelector('.video-overlay');
+  const videoIframe = document.querySelector('#video iframe');
+
+  if (videoOverlay && videoIframe) {
+    videoOverlay.addEventListener('click', function() {
+      // Pause YouTube video using postMessage (works on mobile if enablejsapi=1 is set)
+      videoIframe.contentWindow.postMessage(
+        '{"event":"command","func":"pauseVideo","args":""}',
+        '*'
+      );
+      // Optionally show overlay again or update UI
+      document.querySelector('#video').classList.remove('video-play');
+    });
+  }
 
   let ytPlayer;
   let isVideoPlaying = true; // Track play state
@@ -419,7 +434,6 @@ document.addEventListener('DOMContentLoaded', function() {
           } else {
             isVideoPlaying = false;
             if (event.data === YT.PlayerState.PAUSED) {
-              console.log('Video paused');
               document.querySelector('#video').classList.remove('video-play');
             }
           }
@@ -792,39 +806,4 @@ document.addEventListener('DOMContentLoaded', function() {
       setVisibleSection(firstSection);
     }
   });
-
-  // if (window.innerWidth > 1440) {
-  //   const main = document.getElementById('main');
-  //   document.querySelectorAll('.arrow-circle').forEach(el => {
-  //     el.addEventListener('click', function() {
-  //       const elem = document.documentElement;
-  //       if (elem.requestFullscreen) {
-  //         elem.requestFullscreen();
-  //       } else if (elem.webkitRequestFullscreen) {
-  //         elem.webkitRequestFullscreen();
-  //       } else if (elem.msRequestFullscreen) {
-  //         elem.msRequestFullscreen();
-  //       }
-
-  //       if (main) {
-  //           main.setAttribute('data-fs', true);
-  //       }
-  //     });
-  //   });
-
-  //   function onFullscreenChange() {
-  //     const isFullscreen = document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
-  //     if (!isFullscreen) {
-  //       if (main) {
-  //           main.setAttribute('data-fs', false);
-  //       }
-
-  //       console.log(window.lastVisibleSection);
-  //     }
-  //   }
-
-  //   document.addEventListener('fullscreenchange', onFullscreenChange);
-  //   document.addEventListener('webkitfullscreenchange', onFullscreenChange);
-  //   document.addEventListener('msfullscreenchange', onFullscreenChange);
-  // }
 });

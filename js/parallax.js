@@ -286,6 +286,10 @@ deactivateStoryChaptersOnOutsideClick();
           });
         }
       });
+
+      if (window.lastVisibleSection && window.lastVisibleSection.id === 'video' && section.id !== 'video') {
+        stopYouTubeVideo();
+      }
       
       section.scrollIntoView({ behavior: 'smooth' });
       
@@ -390,13 +394,13 @@ deactivateStoryChaptersOnOutsideClick();
 
   function handleVideoSectionScroll(current, isScrollUp, direct = false) {
     if (current && current.id === 'video') {
-      const iframe = current.querySelector('iframe');
-      if (iframe) {
-        iframe.style.pointerEvents = 'none';
-        setTimeout(() => {
-          iframe.style.pointerEvents = '';
-        }, 2000);
-      }
+      // const iframe = current.querySelector('iframe');
+      // if (iframe) {
+      //   iframe.style.pointerEvents = 'none';
+      //   setTimeout(() => {
+      //     iframe.style.pointerEvents = '';
+      //   }, 2000);
+      // }
       
       if (direct) {
         // Only scroll to video section, do not move to next/prev
@@ -438,15 +442,20 @@ deactivateStoryChaptersOnOutsideClick();
   const videoOverlay = document.querySelector('.video-overlay');
   const videoIframe = document.querySelector('#video iframe');
 
-  if (videoOverlay && videoIframe) {
-    videoOverlay.addEventListener('click', function() {
-      // Pause YouTube video using postMessage (works on mobile if enablejsapi=1 is set)
+  function stopYouTubeVideo() {
+    if (videoIframe) {
       videoIframe.contentWindow.postMessage(
         '{"event":"command","func":"pauseVideo","args":""}',
         '*'
       );
-      // Optionally show overlay again or update UI
+      
       document.querySelector('#video').classList.remove('video-play');
+    }
+  }
+
+  if (videoOverlay && videoIframe) {
+    videoOverlay.addEventListener('click', function() {
+      stopYouTubeVideo();
     });
   }
 
@@ -651,13 +660,11 @@ deactivateStoryChaptersOnOutsideClick();
       const nextSection = getNextSection(current);
       if (nextSection) {
         scrollToSection(nextSection);
-        // console.log('Current section:', current ? current.id : null);
       }
     } else {
       const prevSection = getPreviousSection(current);
       if (prevSection) {
         scrollToSection(prevSection);
-        //console.log('Current section:', current ? current.id : null);
       }
     }
   });

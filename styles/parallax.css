@@ -260,7 +260,7 @@ nav.main-navigation .tooltip-wrapper {
 }
 
 nav.main-navigation .chapter-link:hover .tooltip-wrapper:before {
-  width: 100%;
+  width: 82px;
 }
 
 nav.main-navigation .chapter-link:hover .tooltip-wrapper {
@@ -1603,12 +1603,12 @@ main[data-fs="true"] .row-img-map{
 }
 
 .section-video.video-play iframe {
-  transition: opacity 0.5s;
+  // transition: opacity 0.5s;
 }
 
 .section-video iframe {
   opacity: 0;
-  transition: opacity 3s ease-in-out;
+  // transition: opacity 3s ease-in-out;
 }
 
 .visible.section-video iframe {
@@ -1659,20 +1659,21 @@ main[data-fs="true"] .row-img-map{
   transition: opacity 0.2s;
 }
 
+.video-overlay {
+  position: absolute;
+  top: 80px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: transparent;
+  z-index: 2;
+  height: 80%;
+}
+
 @media (max-width: 768px) {
   .section-video .text-box.wide,
   .section-video .text-box.narrow {
       margin-left: 0;
-  }
-
-  .video-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;;
-    bottom: 0;
-    background: transparent;
-    z-index: 2;
   }
 }
 

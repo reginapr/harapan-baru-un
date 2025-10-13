@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const bgMusic = document.getElementById('bg-music');
 
   if (soundControl && bgMusic) {
-      bgMusic.volume = 0.2; 
+      bgMusic.volume = 0.15; 
       soundControl.addEventListener('click', function(e) {
           e.preventDefault();
 
@@ -841,6 +841,137 @@ deactivateStoryChaptersOnOutsideClick();
       setVisibleSection(firstSection);
     }
   });
+
+  function setupKeyboardArrowNavigation() {
+    document.addEventListener('keydown', function(e) {
+      // Ignore if overlay is open
+      const overlay = document.querySelector('.section-full-overlay');
+      if (overlay && !overlay.classList.contains('slide-up')) return;
+
+      // Only respond to up/down arrow keys
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        const isScrollUp = e.key === 'ArrowUp';
+        const current = getCurrentSection();
+
+        // Handle video section scroll first
+        if (handleVideoSectionScroll(current, isScrollUp)) {
+          e.preventDefault();
+          return;
+        }
+
+        // Only run text-box logic if not on video section
+        if (current.id !== 'video') {
+          const textBoxes = current.querySelectorAll('.text-box');
+          if (textBoxes.length > 0 && current.classList.contains('visible')) {
+            const initCounter = counter + 1;
+            if (initCounter < textBoxes.length) {
+              if (!textBoxScrollLock) {
+                textBoxScrollLock = true;
+                let newIndex = updateIndex(isScrollUp ? -1 : 1);
+                currentIndex = newIndex;
+                setTimeout(() => {
+                  textBoxScrollLock = false;
+                }, TEXTBOX_SCROLL_LOCK_MS);
+              }
+
+              // Show/hide text-boxes as before
+              if (!isScrollUp) {
+                counter = counter + 1;
+                if (counter > 0) {
+                  if (currentIndex > 0 && textBoxes[currentIndex]) {
+                    if (textBoxes[currentIndex - 1]) {
+                      textBoxes[currentIndex - 1].classList.remove('fade-in', 'slide-up');
+                      textBoxes[0].classList.add('hidden');
+                    }
+
+                    if (textBoxes[currentIndex].classList.contains('slide')) {
+                      textBoxes[currentIndex].classList.add('slide-up');
+                      textBoxes[currentIndex].classList.remove('fade-in');
+                    } else if (textBoxes[currentIndex].classList.contains('fade')) {
+                      textBoxes[currentIndex].classList.add('fade-in');
+                      textBoxes[currentIndex].classList.remove('slide-up');
+                    }
+
+                    if (
+                      current.classList.contains('last') &&
+                      currentIndex === textBoxes.length - 1
+                    ) {
+                      replaceGradientWithOverlay(current);
+                    }
+                  } else {
+                    textBoxes[0].classList.remove('fade-in', 'slide-up');
+                  }
+                  e.preventDefault();
+                  return;
+                }
+              } else {
+                // Scroll up
+                counter = counter - 1;
+                if (counter < 0) {
+                  const prevSection = getPreviousSection(current);
+                  if (prevSection) {
+                    currentIndex = 1;
+                    index = 0;
+                    counter = 0;
+                    const prevTextBoxes = prevSection.querySelectorAll('.text-box');
+                    if (prevTextBoxes.length && prevTextBoxes[0].classList.contains('init-slide')) {
+                      prevTextBoxes[0].classList.remove('fade-in', 'slide-up', 'hidden');
+                    }
+                  }
+                } else {
+                  textBoxes[currentIndex + 1].classList.remove('fade-in', 'slide-up');
+                  if (textBoxes[currentIndex].classList.contains('slide') || textBoxes[currentIndex].classList.contains('init-slide')) {
+                    textBoxes[currentIndex].classList.add('slide-up');
+                    textBoxes[currentIndex].classList.remove('fade-in');
+                  } else if (textBoxes[currentIndex].classList.contains('fade')) {
+                    textBoxes[currentIndex].classList.add('fade-in');
+                    textBoxes[currentIndex].classList.remove('slide-up');
+                  }
+                  e.preventDefault();
+                  return;
+                }
+              }
+            } else {
+              // All text-boxes shown, reset index for next section
+              currentIndex = 1;
+              index = 0;
+              counter = 0;
+
+              if (textBoxes.length && textBoxes[0].classList.contains('init-slide')) {
+                textBoxes[0].classList.remove('fade-in', 'slide-up', 'hidden');
+              }
+
+              if (current.classList.contains('last')) {
+                replaceGradientWithOverlay(current);
+              }
+
+              const prevSection = getPreviousSection(current);
+              if (prevSection) {
+                resetOverlayAndFootnote(current);
+              }
+            }
+          }
+        }
+
+        // If no .text-box or all shown, scroll to next/prev section
+        if (!isScrollUp) {
+          const nextSection = getNextSection(current);
+          if (nextSection) {
+            scrollToSection(nextSection);
+          }
+        } else {
+          const prevSection = getPreviousSection(current);
+          if (prevSection) {
+            scrollToSection(prevSection);
+          }
+        }
+        e.preventDefault();
+      }
+    });
+  }
+
+  // Call this inside DOMContentLoaded
+  setupKeyboardArrowNavigation();
 
   const closeBook = document.querySelector('.close-book');
   const storybook = document.getElementById('storybook');

@@ -226,7 +226,7 @@ nav.main-navigation .story-chapters.hidden {
 .tooltip-wrapper p {
   font-size: 14px;
   margin: 0;
-  text-align: right;
+  text-align: center;
 }
 
 .tooltip-wrapper p.chapter-text {
@@ -1690,7 +1690,7 @@ main[data-fs="true"] .row-img-map{
 .outro-container .social-container {
   display: flex;
   justify-content: flex-end;
-  margin-top: 70px;
+  margin-top: 32px;
 }
 
 .outro-container .social-links {

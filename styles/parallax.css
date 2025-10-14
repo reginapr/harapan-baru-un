@@ -1394,6 +1394,10 @@ main[data-fs="true"] .row-img-map{
   text-align: center;
 }
 
+.section-gallery .section-bg {
+  background-position: top center;
+}
+
 @media (max-width: 768px) {
   .column-profile-container.right,
   .column-profile-container.bottom {

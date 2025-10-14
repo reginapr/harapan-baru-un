@@ -134,7 +134,7 @@ nav.main-navigation .sub-links li {
 
 nav.main-navigation .sub-links a {
   display: flex;
-  min-height: 38px;
+  min-height: 28px;
   align-items: center;
   justify-content: center;
 }

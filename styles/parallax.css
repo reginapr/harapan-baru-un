@@ -199,7 +199,9 @@ nav.main-navigation .story-chapters.hidden {
 }
 
 .chapter-image img {
-  width: 100%;
+  width: 120%;
+  position: relative;
+  top: 8px;
 }
 
 .active .chapter-link {

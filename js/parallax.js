@@ -374,7 +374,7 @@ deactivateStoryChaptersOnOutsideClick();
   }
 
   setMouseWheelSensitivity(1);
-  setTrackpadSensitivity(0.3);
+  setTrackpadSensitivity(0.65);
   // Example: setMouseWheelSensitivity(0.7); // Less sensitive
   // Example: setMouseWheelSensitivity(1.5); // More sensitive
 

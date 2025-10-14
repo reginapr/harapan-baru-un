@@ -63,8 +63,8 @@ div[data-hidden="true"] {
 /* Main Navigation */
 nav.main-navigation {
   position: fixed;
-  top: 32px;
-  right: 16px;
+  top: 74px;
+  right: 13px;
   z-index: 5;
 }
 
@@ -279,11 +279,6 @@ nav.main-navigation .chapter-image {
 
 
 @media (max-width: 768px) {
-  nav.main-navigation {
-    top: 16px;
-    right: 10px;
-  }
-
   nav.main-navigation .story-chapters.active {
     max-width: 113px;
     flex-wrap: wrap;
@@ -1227,7 +1222,8 @@ main[data-fs="true"] .row-img-map{
 
 .sponsor-logo img {
   max-width: 100%;
-  filter: invert(100%) brightness(1000%);
+  filter: grayscale(100%) brightness(50%) invert(100%);
+  transition: filter 0.3s ease;
   height: auto;
 }
 

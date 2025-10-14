@@ -1336,7 +1336,7 @@ main[data-fs="true"] .row-img-map{
   position: absolute;
   bottom: -8px;
   left: 18px;
-  transition: width 1s ease-in-out;
+  transition: width 1.8s ease-in-out;
 }
 
 .visible .profile-category span::after {

@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const bgMusic = document.getElementById('bg-music');
 
   if (soundControl && bgMusic) {
-      bgMusic.volume = 0.15; 
+      bgMusic.volume = 0.03; 
       soundControl.addEventListener('click', function(e) {
           e.preventDefault();
 

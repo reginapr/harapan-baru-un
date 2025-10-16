@@ -167,6 +167,7 @@ deactivateStoryChaptersOnOutsideClick();
   const sectionHome = document.getElementById('home');
   const footnote = document.querySelector('.column-footnote');
   const columnRight = document.querySelector('.pillars-slide');
+  const hbSub = document.querySelector('.harapan-baru-sub');
 
   function slideUpOverlay() {
     if (!overlay.classList.contains('slide-up')) {
@@ -174,6 +175,7 @@ deactivateStoryChaptersOnOutsideClick();
 
       if (sectionHome) {
         sectionHome.classList.add('slide-up', 'visible');
+        hbSub.classList.add('show');
       }
     }
   }
@@ -184,6 +186,7 @@ deactivateStoryChaptersOnOutsideClick();
         footnote.classList.add('visible');
       }, 700); // Wait for scroll animation
     }
+
     if (columnRight) {
       columnRight.classList.add('slide-in');
     }

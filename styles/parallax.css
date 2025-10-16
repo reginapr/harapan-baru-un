@@ -750,6 +750,12 @@ main[data-fs="true"] .row-img-map{
   top: 0;
   left: 0;
   width: 100%;
+  opacity: 0;
+}
+
+.harapan-baru-sub.show {
+  opacity: 1;
+  transition: opacity 2s ease-in-out;
 }
 
 .harapan-baru-sub h1 {

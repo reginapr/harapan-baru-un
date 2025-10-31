@@ -254,15 +254,15 @@ nav.main-navigation .tooltip-wrapper {
   box-shadow: none;
   position: absolute;
   color: #ffffff;
-  width: 80px;
-  background: rgba(23,34,47,0.7);
+  width: 78px;
+  background: rgba(0,0,0,0.7);
   right: 53px;
   top: 10px;
   opacity: 0;
 }
 
 nav.main-navigation .chapter-link:hover .tooltip-wrapper:before {
-  width: 105px;
+  width: 102px;
 }
 
 nav.main-navigation .chapter-link:hover .tooltip-wrapper {

@@ -164,6 +164,7 @@ deactivateStoryChaptersOnOutsideClick();
   });
 
   const overlay = document.querySelector('.section-full-overlay');
+  const overlayArrow = document.querySelector('.arrow-circle');
   const sectionHome = document.getElementById('home');
   const footnote = document.querySelector('.column-footnote');
   const columnRight = document.querySelector('.pillars-slide');
@@ -194,7 +195,7 @@ deactivateStoryChaptersOnOutsideClick();
 
   // Slide up on click (only if overlay is visible)
   if (overlay) {
-    overlay.addEventListener('click', function() {
+    overlayArrow.addEventListener('click', function() {
       if (!overlay.classList.contains('slide-up')) {
         slideUpOverlay();
       }
@@ -489,10 +490,10 @@ deactivateStoryChaptersOnOutsideClick();
       const allFlags = document.querySelectorAll('.flag');
       
       allFlags.forEach(f => {
-          if (f === flag) {
-              f.classList.add('active');
+          if (f.getAttribute('data-lang') === selectedLang) {
+            f.classList.add('active');
           } else {
-              f.classList.remove('active');
+            f.classList.remove('active');
           }
       });
 
